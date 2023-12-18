@@ -1,5 +1,16 @@
+:root {
+    --color-foreground: #000;
+    --color-background: #FFF;
+
+    @media (prefers-color-scheme: dark) {
+        --color-foreground: #FFF;
+        --color-background: #000;
+    }
+}
+
 body {
-    background-color: #FFF;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
 }
 
 .holder {

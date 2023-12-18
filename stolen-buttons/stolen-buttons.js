@@ -2,7 +2,7 @@ const getButtons = async () => {
     const { buttons } = await chrome.storage.local.get('buttons');
     const target = document.getElementById('target');
     target.innerHTML = '';
-    for (let i = buttons.length-1; i >= 0; i--) {
+    for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
         const div = document.createElement('div');
         div.classList.add('wrapper');
