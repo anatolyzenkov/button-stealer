@@ -1,0 +1,26 @@
+{
+  "name": "Button stealer",
+  "description": "Steal buttons from websites you visit",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_icon": "images/steal_button_extensions.png",
+    "default_popup": "popup/popup.html"
+  },
+  "permissions": [
+    "storage", "webNavigation"
+  ],
+  "background": {
+    "service_worker": "scripts/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/button-stealer.js"
+      ],
+      "matches": [
+        "https://*/*"
+      ]
+    }
+  ]
+}
