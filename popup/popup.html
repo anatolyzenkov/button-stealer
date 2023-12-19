@@ -5,11 +5,32 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
-    <!-- <script src='main.js'></script> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='/styles/normalize.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
 </head>
 <body>
-    <h1>Hello!</h1>
-    <a href="/stolen-buttons/stolen-buttons.html" target="_blank">Open it</a>
+    <h1>Stolen Buttons</h1>
+    <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank">Open Stash</a>
+    <form action="/my-handling-form-page" method="post">
+        <ul>
+            <li>
+                <label for="maximum">Maximum:</label>
+                <input type="range" min="20" max="400" id="maximum" name="maximum"/>
+            </li>
+            <li>
+                <label for="contentManagementApiKey">Content Management API Key:</label>
+                <input id="contentManagementApiKey" name="contentManagementApiKey"></input>
+            </li>
+            <li>
+                <label for="spaceId">Space ID:</label>
+                <input id="spaceId" name="spaceId"></input>
+            </li>
+            <li>
+                <label for="contentTypeId">Content Type ID:</label>
+                <input id="contentTypeId" name="contentTypeId"></input>
+            </li>
+        </ul>
+    </form>
+    <script src='script.js'></script>
 </body>
 </html>

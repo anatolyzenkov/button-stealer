@@ -181,15 +181,35 @@
             stripCSS(child, ref.children[i], true, elem.tagName.toLowerCase() === 'svg' || isSVGChild);
         });
         if (!isChild) {
-            fFaces = elem.style.getPropertyValue('font-family').split(';');
+            fFaces = elem.style.getPropertyValue('font-family').split(',');
             lastFF = fFaces[fFaces.length-1].trim();
             if (lastFF !== 'sans-serif') {
                 fFaces.push('system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', 'sans-serif');
                 elem.style.setProperty('font-family', fFaces.join(', '));
             }
+            if (elem.tagName.toLowerCase() === 'button') {
+                if (elem.style.backgroundColor === '') {
+                    elem.style.backgroundColor = 'transparent';
+                }
+            }
         }
-        elem.setAttribute('class', '');
+        elem.removeAttribute('class');
+        elem.removeAttribute('id');
+        elem.removeAttribute('target');
+        elem.removeAttribute('alt');
+        if (elem.hasAttribute('src')) {
+            const rgExp = new RegExp("^(?:[a-z]+:)?//", "i");
+            if (!rgExp.test(elem.getAttribute('src'))) {
+                if (elem.getAttribute('src').charAt(0) === '/') {
+                    elem.setAttribute('src', `${window.location.origin}${elem.getAttribute('src')}`);
+                }
+                if (elem.getAttribute('src').substr(0, 2) === './') {
+                    elem.setAttribute('src', `${window.location.origin}${window.location.pathname}${elem.getAttribute('src').substr(1)}`);
+                }
+            }
+        }
     }
+
     const isElementInViewport = (el) => {
         let top = el.offsetTop;
         let left = el.offsetLeft;
@@ -226,7 +246,6 @@
                 if (button.querySelectorAll('[class*="material-icons"]').length > 0) continue;
                 if (button.querySelectorAll('[class*="material-symbols"]').length > 0) continue;
                 if (stolenButtons.find((entry) => entry.text === button.innerText.trim())) continue;
-                // if (entries.items.find((entry) => entry.fields.text === button.innerText.trim())) continue;
                 const elemCSS = window.getComputedStyle(button);
                 if (elemCSS.getPropertyValue('transform') === 'matrix(0, 0, 0, 0, 0, 0)') continue;
                 if (elemCSS.getPropertyValue('opacity') === '0') continue;
@@ -235,6 +254,7 @@
                 if (button.innerText.split(' ').join('').length < 2) continue;
                 if (button.innerText.indexOf('\n') !== -1) continue;
                 if (button.innerText.indexOf('\t') !== -1) continue;
+                if (button.innerText.trim().toLowerCase() === 'ad') continue;
                 const width = button.offsetWidth;
                 const height = button.offsetHeight;
                 if (width < 10) continue;
@@ -257,12 +277,10 @@
                 cloneButton.style.margin = '0';
                 stripCSS(cloneButton, button);
                 if (cloneButton.style.position === 'absolute') cloneButton.style.position = 'relative';
-                cloneButton.setAttribute('class', '');
-                cloneButton.setAttribute('id', '');
                 if (j === 0) {
                     cloneButton.setAttribute('href', '#');
                 } else {
-                    cloneButton.setAttribute('onclick', '');
+                    cloneButton.removeAttribute('onclick');
                 }
                 return {
                     code: cloneButton.outerHTML,
@@ -285,7 +303,6 @@
             if (url.origin !== window.location.origin) continue;
             localButtons.push(button);
             if (localButtons.length === 1) {
-                console.log(button.stolenAt);
                 const m = Math.floor((new Date() - new Date(button.stolenAt))/1000/60);
                 if (m < 5) return; //5 minute moratorium on button stealing from this website
             }
