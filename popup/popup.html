@@ -6,31 +6,32 @@
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='/styles/normalize.css'>
-    <link rel='stylesheet' type='text/css' media='screen' href='styles.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='popup.css'>
 </head>
 <body>
     <h1>Stolen Buttons</h1>
     <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank">Open Stash</a>
-    <form action="/my-handling-form-page" method="post">
+    <form id="form">
         <ul>
             <li>
                 <label for="maximum">Maximum:</label>
                 <input type="range" min="20" max="400" id="maximum" name="maximum"/>
+                <div id="maximumValue"></div>
             </li>
             <li>
                 <label for="contentManagementApiKey">Content Management API Key:</label>
-                <input id="contentManagementApiKey" name="contentManagementApiKey"></input>
+                <input type="password" id="contentManagementApiKey" name="contentManagementApiKey"></input>
             </li>
             <li>
                 <label for="spaceId">Space ID:</label>
-                <input id="spaceId" name="spaceId"></input>
+                <input type="password" id="spaceId" name="spaceId"></input>
             </li>
             <li>
                 <label for="contentTypeId">Content Type ID:</label>
-                <input id="contentTypeId" name="contentTypeId"></input>
+                <input type="text" id="contentTypeId" name="contentTypeId"></input>
             </li>
         </ul>
     </form>
-    <script src='script.js'></script>
+    <script src='popup.js'></script>
 </body>
 </html>

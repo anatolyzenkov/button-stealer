@@ -7,6 +7,7 @@ const getButtons = async () => {
         const div = document.createElement('div');
         div.classList.add('wrapper');
         div.innerHTML = button.code;
+        div.append(button.source)
         target.append(div);
     }
 }

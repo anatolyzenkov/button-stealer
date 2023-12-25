@@ -1,4 +1,4 @@
-((list) => {
+(() => {
     const inheritable = [
         'font', 'font-family', 'font-size', 'font-style', 'font-weight', 'letter-spacing', 'line-height', 'cursor', 'azimuth', 'border-collapse',
         'border-spacing', 'caption-side', 'color', 'cursor', 'direction', 'elevation', 'empty-cells', 'font-family', 'font-size', 'font-style',
@@ -26,7 +26,8 @@
         'app-region', 'backface-visibility', 'baseline-shift', 'block-size', 'border-block-end', 'border-block-start', 'caret-color', 'caption-side',
         'inline-size', 'perspective-origin', 'text-decoration-color', 'text-emphasis-color', '-webkit-text-fill-color', '-webkit-text-stroke-color',
         '-webkit-mask-box-image-source', '-webkit-mask-box-image-slice', '-webkit-mask-box-image-width', '-webkit-mask-box-image-outset',
-        '-webkit-mask-box-image-repeat', '-webkit-locale', '-webkit-tap-highlight-color'
+        '-webkit-mask-box-image-repeat', '-webkit-locale', '-webkit-tap-highlight-color', 'tab-size', 'transition', 'transition-property', 'transition-duration',
+        'transition-timing-function', 'transition-delay', 'transition-behavior', 'accent-color',
     ];
 
     const defaults = [
@@ -146,6 +147,14 @@
             elem.style.setProperty('margin-top', '');
             elem.style.setProperty('margin-left', '');
             elem.style.setProperty('margin-right', '');
+            elem.style.setProperty('bottom', '');
+            elem.style.setProperty('top', '');
+            elem.style.setProperty('left', '');
+            elem.style.setProperty('right', '');
+            elem.style.setProperty('inset-block-end', '');
+            elem.style.setProperty('inset-block-start', '');
+            elem.style.setProperty('inset-inline-end', '');
+            elem.style.setProperty('inset-inline-start', '');
             if (elem.tagName.toLowerCase() === 'button') {
                 elem.style.setProperty('position', 'relative');
             }
@@ -192,8 +201,19 @@
                     elem.style.backgroundColor = 'transparent';
                 }
             }
+            // if (elem.style.backgroundColor === 'rgb(255, 255, 255)') {
+                // if (elem.style.)
+            // }
         }
-        elem.removeAttribute('class');
+        const names = elem.getAttributeNames();
+        for (let key in names) {
+            const attr = names[key];
+            if (['id', 'class', 'target', 'alt'].indexOf(attr) !== -1
+                || attr.indexOf('data-') === 0
+                || attr.indexOf('aria-') === 0) {
+                elem.removeAttribute(attr);
+            }
+        }
         elem.removeAttribute('id');
         elem.removeAttribute('target');
         elem.removeAttribute('alt');
@@ -245,12 +265,14 @@
                 const button = buttons[i];
                 if (button.querySelectorAll('[class*="material-icons"]').length > 0) continue;
                 if (button.querySelectorAll('[class*="material-symbols"]').length > 0) continue;
-                if (stolenButtons.find((entry) => entry.text === button.innerText.trim())) continue;
+                if (!DEBUG && stolenButtons.find((entry) => entry.text === button.innerText.trim())) continue;
                 const elemCSS = window.getComputedStyle(button);
                 if (elemCSS.getPropertyValue('transform') === 'matrix(0, 0, 0, 0, 0, 0)') continue;
                 if (elemCSS.getPropertyValue('opacity') === '0') continue;
                 if (i < 10) if (!isElementInViewport(button)) continue;
                 if (button.innerText === undefined) continue;
+                if (button.innerText.toLowerCase().split(' ').indexOf('skip') !== -1) continue;
+                if (button.innerText.toLowerCase().split(' ').indexOf('jump') !== -1) continue;
                 if (button.innerText.split(' ').join('').length < 2) continue;
                 if (button.innerText.indexOf('\n') !== -1) continue;
                 if (button.innerText.indexOf('\t') !== -1) continue;
@@ -283,7 +305,10 @@
                     cloneButton.removeAttribute('onclick');
                 }
                 return {
-                    code: cloneButton.outerHTML,
+                    code: cloneButton.outerHTML
+                        .replaceAll('rgb(255, 255, 255)', '#FFF')
+                        .replaceAll('rgb(0, 0, 0)', '#000')
+                        .replaceAll('rgba(0, 0, 0, 0)', 'transparent'),
                     text: button.innerText.trim()
                 }
             }
@@ -304,28 +329,34 @@
             localButtons.push(button);
             if (localButtons.length === 1) {
                 const m = Math.floor((new Date() - new Date(button.stolenAt))/1000/60);
-                if (m < 5) return; //5 minute moratorium on button stealing from this website
+                if (m < 5 && !DEBUG) return; //5 minute moratorium on button stealing from this website
             }
         }
         const { code, text } = getCode(localButtons);
         if (!code) return;
-        buttons.unshift({
+        const button = {
             name: `"${text}" from ${window.location.hostname}`,
             code: code,
             source: window.location.origin + window.location.pathname,
             text: text,
             stolenAt: (new Date()).toUTCString(),
-        });
+        };
+        buttons.unshift(button);
         while (buttons.length >= maximum) {
             buttons.pop();
         }
+        const { upload } = await chrome.storage.local.get('upload');
+        upload.unshift(button);
         chrome.storage.local.set({ 'buttons': buttons });
+        chrome.storage.local.set({ 'upload': upload });
     }
 
+    let timeoutId = -1;
 
     navigation.addEventListener('navigatesuccess', () => {
-        stealButton();
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(stealButton, 500);
     })
 
-    stealButton();
+    timeoutId = setTimeout(stealButton, 500);
 })();
