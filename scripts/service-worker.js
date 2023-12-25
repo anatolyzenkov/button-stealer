@@ -67,17 +67,21 @@ const uploadOffscreen = async () => {
 
 const handleMessages = async (message) => {
     if (message.target !== 'background') return;
+    console.log(message);
     switch (message.type) {
         case 'stolen-button-uploaded':
             const { upload } = await chrome.storage.local.get(UPLOAD);
             upload.pop()
             chrome.storage.local.set({ 'upload': upload });
             break;
-        case 'maximum-updated':
+        case 'update-maximum':
             chrome.storage.local.set({ maximum: parseInt(message.value) });
             break;
-        case 'contentful-updated':
+        case 'updated-contentful':
             chrome.storage.local.set({ contentful: JSON.parse(message.value) });
+            break;
+        case 'remove-all':
+            chrome.storage.local.set({ buttons: [], upload: [] })
             break;
         default:
             break;

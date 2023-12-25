@@ -12,7 +12,7 @@ const form = document.getElementById('form');
 
 const saveContentful = () => {
     const formData = new FormData(form);
-    sendToBackground('contentful-updated', JSON.stringify({
+    sendToBackground('update-contentful', JSON.stringify({
         contentManagementApiKey: formData.get(CNTFL_API_KEY),
         spaceId: formData.get(CNTFL_SPACE_ID),
         contentTypeId: formData.get(CNTFL_TYPE_ID),
@@ -20,7 +20,7 @@ const saveContentful = () => {
 }
 
 const saveMaximum = () => {
-    sendToBackground('maximum-updated', maximumInput.value);
+    sendToBackground('update-maximum', maximumInput.value);
 }
 
 const updateMaximum = (maximum) => {
@@ -47,14 +47,30 @@ const sendToBackground = (type, value) => {
         target: 'background'
     });
 }
+let maximumDelay = -1;
+let contentfulDelay = -1;
 
 maximumInput.addEventListener('input', () => {
     maximumValue.innerText = maximumInput.value;
-    saveMaximum();
+    clearTimeout(maximumDelay);
+    maximumDelay = setTimeout(saveMaximum, 500);
 });
 
 [apiKeyInput, spaceIdInput, typeIdInput].forEach(input => {
-    input.addEventListener('focusout', saveContentful);
+    input.addEventListener('input', () => {
+        console.log('!!!');
+        clearTimeout(contentfulDelay);
+        contentfulDelay = setTimeout(saveContentful, 500);
+    });
 })
+
+document.getElementById('remove-all').addEventListener('click', () => {
+    if (confirm("Remove buttons?") == true) {
+        chrome.runtime.sendMessage({
+            type: 'remove-all',
+            target: 'background'
+        });
+    }
+});
 
 getData();
