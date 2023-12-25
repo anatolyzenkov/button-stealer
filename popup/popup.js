@@ -10,41 +10,18 @@ const spaceIdInput = document.getElementById(CNTFL_SPACE_ID);
 const typeIdInput = document.getElementById(CNTFL_TYPE_ID);
 const form = document.getElementById('form');
 
-maximumInput.addEventListener('input', () => {
-    maximumValue.innerText = maximumInput.value;
-});
+const saveContentful = () => {
+    const formData = new FormData(form);
+    sendToBackground('contentful-updated', JSON.stringify({
+        contentManagementApiKey: formData.get(CNTFL_API_KEY),
+        spaceId: formData.get(CNTFL_SPACE_ID),
+        contentTypeId: formData.get(CNTFL_TYPE_ID),
+    }));
+}
 
-maximumInput.addEventListener('focusout', () => {
-    chrome.storage.local.set({ maximum: parseInt(maximumInput.value) });
-});
-
-[apiKeyInput, spaceIdInput, typeIdInput].forEach(input => {
-    input.addEventListener('focusout', () => {
-        const formData = new FormData(form);
-        chrome.storage.local.set({
-            'contentful': {
-                contentManagementApiKey: formData.get(CNTFL_API_KEY),
-                spaceId: formData.get(CNTFL_SPACE_ID),
-                contentTypeId: formData.get(CNTFL_TYPE_ID),
-            }
-        });
-    });
-})
-
-chrome.storage.onChanged.addListener((obj) => {
-    switch (true) {
-        case obj.hasOwnProperty(MAXIMUM):
-            console.log('max')
-            updateMaximum(obj.maximum.newValue);
-            break;
-        case obj.hasOwnProperty(CONTENTFUL):
-            console.log('cont')
-            updateContentful(obj.contentful.newValue);
-            break;
-        default:
-            break;
-    }
-});
+const saveMaximum = () => {
+    sendToBackground('maximum-updated', maximumInput.value);
+}
 
 const updateMaximum = (maximum) => {
     maximumInput.value = maximum;
@@ -62,4 +39,22 @@ const getData = async () => {
     updateMaximum(maximum);
     updateContentful(contentful);
 }
+
+const sendToBackground = (type, value) => {
+    chrome.runtime.sendMessage({
+        type,
+        value,
+        target: 'background'
+    });
+}
+
+maximumInput.addEventListener('input', () => {
+    maximumValue.innerText = maximumInput.value;
+    saveMaximum();
+});
+
+[apiKeyInput, spaceIdInput, typeIdInput].forEach(input => {
+    input.addEventListener('focusout', saveContentful);
+})
+
 getData();

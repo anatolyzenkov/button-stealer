@@ -73,6 +73,12 @@ const handleMessages = async (message) => {
             upload.pop()
             chrome.storage.local.set({ 'upload': upload });
             break;
+        case 'maximum-updated':
+            chrome.storage.local.set({ maximum: parseInt(message.value) });
+            break;
+        case 'contentful-updated':
+            chrome.storage.local.set({ contentful: JSON.parse(message.value) });
+            break;
         default:
             break;
     }

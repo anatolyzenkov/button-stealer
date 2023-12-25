@@ -35,10 +35,7 @@ const upload = async (button, contentful) => {
         });
 }
 
-
-chrome.runtime.onMessage.addListener(handleMessages);
-
-async function handleMessages (message) {
+const handleMessages = async (message) => {
     if (message.target !== 'offscreen') return false;
     switch (message.type) {
         case 'upload-stolen-button':
@@ -49,9 +46,11 @@ async function handleMessages (message) {
     }
 }
 
-function sendToBackground() {
+const sendToBackground = () => {
     chrome.runtime.sendMessage({
         type: 'stolen-button-uploaded',
         target: 'background'
     });
 }
+
+chrome.runtime.onMessage.addListener(handleMessages);
