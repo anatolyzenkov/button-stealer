@@ -274,6 +274,7 @@
                 if (button.innerText.toLowerCase().split(' ').indexOf('skip') !== -1) continue;
                 if (button.innerText.toLowerCase().split(' ').indexOf('jump') !== -1) continue;
                 if (button.innerText.split(' ').join('').length < 2) continue;
+                if (button.innerText.split(' ').join('').length > 32) continue;
                 if (button.innerText.indexOf('\n') !== -1) continue;
                 if (button.innerText.indexOf('\t') !== -1) continue;
                 if (button.innerText.trim().toLowerCase() === 'ad') continue;
