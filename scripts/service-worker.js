@@ -75,7 +75,7 @@ const handleMessages = async (message) => {
         case 'update-maximum':
             chrome.storage.local.set({ maximum: parseInt(message.value) });
             break;
-        case 'updated-contentful':
+        case 'update-contentful':
             chrome.storage.local.set({ contentful: JSON.parse(message.value) });
             break;
         case 'remove-all':
