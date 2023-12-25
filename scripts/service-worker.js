@@ -30,11 +30,9 @@ chrome.storage.onChanged.addListener(async (obj) => {
             chrome.storage.local.set({ 'buttons': buttons });
             break;
         case obj.hasOwnProperty(UPLOAD):
-            console.log('Worker: Upload are changed');
             uploadOffscreen();
             break;
         case obj.hasOwnProperty(CONTENTFUL):
-            console.log('Worker: Contentful is changed');
             uploadOffscreen();
             break;
         default:
