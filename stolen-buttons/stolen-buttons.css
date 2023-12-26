@@ -14,7 +14,7 @@ body {
 }
 
 .holder {
-    padding: 20px;
+    padding: 16px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -23,5 +23,5 @@ body {
 }
 
 .wrapper {
-    padding: 16px;
+    padding: 8px;
 }

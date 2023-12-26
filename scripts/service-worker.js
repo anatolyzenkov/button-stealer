@@ -3,6 +3,7 @@ const CNTFL_API_KEY = 'contentManagementApiKey';
 const CNTFL_SPACE_ID = 'spaceId';
 const CNTFL_TYPE_ID = 'contentTypeId';
 const CONTENTFUL = 'contentful';
+const IGNORE = 'ignore';
 const BUTTONS = 'buttons';
 const UPLOAD = 'upload';
 const OFFSCREEN_DOCUMENT_PATH = '/offscreen/offscreen.html';
@@ -12,6 +13,7 @@ chrome.runtime.onInstalled.addListener(({ reason }) => {
         chrome.storage.local.set({
             buttons: [],
             upload: [],
+            ignore: [],
             maximum: 200,
             contentful: {
                 contentManagementApiKey: '',
@@ -78,6 +80,8 @@ const handleMessages = async (message) => {
         case 'update-contentful':
             chrome.storage.local.set({ contentful: JSON.parse(message.value) });
             break;
+        case 'update-ignore':
+            chrome.storage.local.set({ ignore: message.value.split(' ') });
         case 'remove-all':
             chrome.storage.local.set({ buttons: [], upload: [] })
             break;

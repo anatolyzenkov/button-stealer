@@ -11,13 +11,26 @@
 <body>
     <h1>Stolen Buttons</h1>
     <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank">Open Stash</a>
-    <form id="form">
+    <form id="maximum-form">
         <ul>
             <li>
                 <label for="maximum">Maximum:</label>
-                <input type="range" min="20" max="400" id="maximum" name="maximum"/>
+                <input type="range" min="100" max="400" step="100" id="maximum" name="maximum"/>
                 <div id="maximumValue"></div>
             </li>
+        </ul>
+        <button id="remove-all">Remove All</button>
+    </form>
+    <form id="ignore-form">
+        <ul>
+            <li>
+                <label for="ignore">Ignore List:</label>
+                <textarea placeholder="example.com *.example.com" id="ignore" name="ignore" rows="5" cols="33"></textarea>
+            </li>
+        </ul>
+    </form>
+    <form id="contentful-form">
+        <ul>
             <li>
                 <label for="contentManagementApiKey">Content Management API Key:</label>
                 <input type="password" id="contentManagementApiKey" name="contentManagementApiKey"></input>
@@ -32,7 +45,6 @@
             </li>
         </ul>
     </form>
-    <button id="remove-all">Remove All</button>
     <script src='popup.js'></script>
 </body>
 </html>

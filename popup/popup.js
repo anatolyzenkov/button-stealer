@@ -3,29 +3,22 @@ const CNTFL_API_KEY = 'contentManagementApiKey';
 const CNTFL_SPACE_ID = 'spaceId';
 const CNTFL_TYPE_ID = 'contentTypeId';
 const CONTENTFUL = 'contentful';
+const IGNORE = 'ignore';
 const maximumInput = document.getElementById(MAXIMUM);
 const maximumValue = document.getElementById('maximumValue');
+const ignoreInput = document.getElementById(IGNORE);
 const apiKeyInput = document.getElementById(CNTFL_API_KEY);
 const spaceIdInput = document.getElementById(CNTFL_SPACE_ID);
 const typeIdInput = document.getElementById(CNTFL_TYPE_ID);
-const form = document.getElementById('form');
+const contentfulForm = document.getElementById(`${CONTENTFUL}-form`);
 
 const saveContentful = () => {
-    const formData = new FormData(form);
-    sendToBackground('update-contentful', JSON.stringify({
+    const formData = new FormData(contentfulForm);
+    sendToBackground(`update-${CONTENTFUL}`, JSON.stringify({
         contentManagementApiKey: formData.get(CNTFL_API_KEY),
         spaceId: formData.get(CNTFL_SPACE_ID),
         contentTypeId: formData.get(CNTFL_TYPE_ID),
     }));
-}
-
-const saveMaximum = () => {
-    sendToBackground('update-maximum', maximumInput.value);
-}
-
-const updateMaximum = (maximum) => {
-    maximumInput.value = maximum;
-    maximumValue.innerText = maximum;
 }
 
 const updateContentful = (contentful) => {
@@ -34,10 +27,28 @@ const updateContentful = (contentful) => {
     typeIdInput.value = contentful.contentTypeId;
 }
 
+const saveMaximum = () => {
+    sendToBackground(`update-${MAXIMUM}`, maximumInput.value);
+}
+
+const updateMaximum = (maximum) => {
+    maximumInput.value = maximum;
+    maximumValue.innerText = maximum;
+}
+
+const saveIgnore = () => {
+    sendToBackground(`update-${IGNORE}`, ignoreInput.value);
+}
+
+const updateIgnore = (ignore) => {
+    ignoreInput.value = ignore.join(' ');
+}
+
 const getData = async () => {
-    const { maximum, contentful } = await chrome.storage.local.get([MAXIMUM, CONTENTFUL]);
+    const { maximum, contentful, ignore } = await chrome.storage.local.get([MAXIMUM, CONTENTFUL, IGNORE]);
     updateMaximum(maximum);
     updateContentful(contentful);
+    updateIgnore(ignore);
 }
 
 const sendToBackground = (type, value) => {
@@ -49,6 +60,7 @@ const sendToBackground = (type, value) => {
 }
 let maximumDelay = -1;
 let contentfulDelay = -1;
+let ignoreDelay = -1;
 
 maximumInput.addEventListener('input', () => {
     maximumValue.innerText = maximumInput.value;
@@ -58,7 +70,6 @@ maximumInput.addEventListener('input', () => {
 
 [apiKeyInput, spaceIdInput, typeIdInput].forEach(input => {
     input.addEventListener('input', () => {
-        console.log('!!!');
         clearTimeout(contentfulDelay);
         contentfulDelay = setTimeout(saveContentful, 500);
     });
@@ -71,6 +82,11 @@ document.getElementById('remove-all').addEventListener('click', () => {
             target: 'background'
         });
     }
+});
+
+ignoreInput.addEventListener('input', ()=> {
+    clearTimeout(ignoreDelay);
+    contentfulDelay = setTimeout(saveIgnore, 500);
 });
 
 getData();

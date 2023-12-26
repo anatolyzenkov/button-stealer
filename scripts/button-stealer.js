@@ -321,7 +321,24 @@
     }
 
     const stealButton = async () => {
-        let { buttons, maximum } = await chrome.storage.local.get(['buttons', 'maximum']);
+        let { buttons, maximum, ignore } = await chrome.storage.local.get(['buttons', 'maximum', 'ignore']);
+        
+        for (let i = 0; i < ignore.length; i++) {
+            const listed = ignore[i].split('.');
+            const hostname = window.location.hostname.split('.');
+            while (hostname.length < listed.length) {
+                hostname.unshift('*');
+            };
+            let match = true;
+            for (let j = hostname.length - 1; j > -1; j--) {
+                if (hostname[j] !== listed[j]) {
+                    if (listed[j] === '*') continue;
+                    match = false;
+                }
+            }
+            if (match) return;
+        }
+
         const localButtons = [];
         for (let i = 0; i < buttons.length; i++) {
             const button = buttons[i];
