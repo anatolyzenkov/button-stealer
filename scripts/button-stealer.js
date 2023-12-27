@@ -27,7 +27,7 @@
         'inline-size', 'perspective-origin', 'text-decoration-color', 'text-emphasis-color', '-webkit-text-fill-color', '-webkit-text-stroke-color',
         '-webkit-mask-box-image-source', '-webkit-mask-box-image-slice', '-webkit-mask-box-image-width', '-webkit-mask-box-image-outset',
         '-webkit-mask-box-image-repeat', '-webkit-locale', '-webkit-tap-highlight-color', 'tab-size', 'transition', 'transition-property', 'transition-duration',
-        'transition-timing-function', 'transition-delay', 'transition-behavior', 'accent-color',
+        'transition-timing-function', 'transition-delay', 'transition-behavior', 'accent-color', 'z-index'
     ];
 
     const defaults = [

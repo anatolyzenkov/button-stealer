@@ -3,6 +3,7 @@ const CNTFL_API_KEY = 'contentManagementApiKey';
 const CNTFL_SPACE_ID = 'spaceId';
 const CNTFL_TYPE_ID = 'contentTypeId';
 const CONTENTFUL = 'contentful';
+const BUTTONS = 'buttons';
 const IGNORE = 'ignore';
 const maximumInput = document.getElementById(MAXIMUM);
 const maximumValue = document.getElementById('maximumValue');
@@ -44,11 +45,36 @@ const updateIgnore = (ignore) => {
     ignoreInput.value = ignore.join(' ');
 }
 
+const updateButtons = (buttons) => {
+    let stat;
+    switch (true) {
+        case buttons.length === 1:
+            stat = "One button already stolen"
+            break;
+        case buttons.length > 1:
+            stat = `${buttons.length} buttons stolen`
+            break;
+        default:
+            stat = "No buttons stolen yet"
+            break;
+    }
+    document.getElementById('stat').innerText = stat;
+    document.getElementById('buttons').innerHTML = '';
+    for (let i = 0; i < Math.min(50, buttons.length); i++) {
+        const button = buttons[i];
+        const div = document.createElement('div');
+        div.classList.add('button-wrapper');
+        div.innerHTML = button.code;
+        document.getElementById('buttons').append(div);
+    }
+}
+
 const getData = async () => {
-    const { maximum, contentful, ignore } = await chrome.storage.local.get([MAXIMUM, CONTENTFUL, IGNORE]);
+    const { maximum, contentful, ignore, buttons } = await chrome.storage.local.get([MAXIMUM, CONTENTFUL, IGNORE, BUTTONS]);
     updateMaximum(maximum);
     updateContentful(contentful);
     updateIgnore(ignore);
+    updateButtons(buttons)
 }
 
 const sendToBackground = (type, value) => {
@@ -87,6 +113,10 @@ document.getElementById('remove-all').addEventListener('click', () => {
 ignoreInput.addEventListener('input', ()=> {
     clearTimeout(ignoreDelay);
     contentfulDelay = setTimeout(saveIgnore, 500);
+});
+
+document.getElementById('switch').addEventListener('click', ()=> {
+    document.body.classList.toggle('show-settings');
 });
 
 getData();

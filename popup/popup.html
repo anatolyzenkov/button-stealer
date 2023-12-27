@@ -1,50 +1,60 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Button Stealer</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='/styles/normalize.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='popup.css'>
 </head>
+
 <body>
-    <h1>Stolen Buttons</h1>
-    <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank">Open Stash</a>
-    <form id="maximum-form">
-        <ul>
-            <li>
-                <label for="maximum">Maximum:</label>
-                <input type="range" min="100" max="400" step="100" id="maximum" name="maximum"/>
-                <div id="maximumValue"></div>
-            </li>
-        </ul>
-        <button id="remove-all">Remove All</button>
-    </form>
-    <form id="ignore-form">
-        <ul>
-            <li>
-                <label for="ignore">Ignore List:</label>
-                <textarea placeholder="example.com *.example.com" id="ignore" name="ignore" rows="5" cols="33"></textarea>
-            </li>
-        </ul>
-    </form>
-    <form id="contentful-form">
-        <ul>
-            <li>
-                <label for="contentManagementApiKey">Content Management API Key:</label>
-                <input type="password" id="contentManagementApiKey" name="contentManagementApiKey"></input>
-            </li>
-            <li>
-                <label for="spaceId">Space ID:</label>
-                <input type="password" id="spaceId" name="spaceId"></input>
-            </li>
-            <li>
-                <label for="contentTypeId">Content Type ID:</label>
-                <input type="text" id="contentTypeId" name="contentTypeId"></input>
-            </li>
-        </ul>
-    </form>
+    <div id="main">
+        <div id="backdrop">
+            <div id="buttons"></div>
+            <div id="backdrop-blur"></div>
+        </div>
+        <div class="wrapper">
+            <h1>Stolen Buttons</h1>
+            <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank" class="button label">Your Stash</a>
+            <p id="stat" class="label">…</p>
+        </div>
+    </div>
+    <div id="settings">
+        <div class="navbar">
+            <h2>Settings</h2>
+        </div>
+        <div class="wrapper settings">
+            <form id="ignore-form">
+                <h3>Ignore List</h3>
+                <input class="label" placeholder="example.com *.example.com" id="ignore" name="ignore"/>
+            </form>
+            <form id="maximum-form">
+                <h3>Maximum Buttons <span id="maximumValue"></span></h3>
+                <input class="label" type="range" min="100" max="400" step="100" id="maximum" name="maximum" />
+            </form>
+            
+            <form id="contentful-form">
+                <h3>Contentful Settings</h3>
+                <input class="label" type="password" id="contentManagementApiKey" name="contentManagementApiKey" placeholder="Content Management API Key"></input>
+                <input class="label" type="password" id="spaceId" name="spaceId" placeholder="Space ID"></input>
+                <input class="label" type="text" id="contentTypeId" name="contentTypeId" placeholder="Content Type ID"></input>
+                <p>These settings are for author use only.</p>
+            </form>
+            <a id="remove-all" role="button" class="button critical label">Remove All Buttons</a>
+        </div>
+    </div>
+    <div id="switch">
+        <div class="dash dash-0"></div>
+        <div class="dash dash-1"></div>
+        <div class="dash dash-2"></div>
+    </div>
     <script src='popup.js'></script>
 </body>
+
 </html>
