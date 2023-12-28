@@ -196,14 +196,14 @@
                 fFaces.push('system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Open Sans', 'Helvetica Neue', 'sans-serif');
                 elem.style.setProperty('font-family', fFaces.join(', '));
             }
-            if (elem.tagName.toLowerCase() === 'button') {
-                if (elem.style.backgroundColor === '') {
-                    elem.style.backgroundColor = 'transparent';
-                }
-            }
             // if (elem.style.backgroundColor === 'rgb(255, 255, 255)') {
                 // if (elem.style.)
-            // }
+                // }
+        }
+        if (elem.tagName.toLowerCase() === 'button') {
+            if (elem.style.backgroundColor === '') {
+                elem.style.backgroundColor = 'transparent';
+            }
         }
         const names = elem.getAttributeNames();
         for (let key in names) {
@@ -347,7 +347,7 @@
             localButtons.push(button);
             if (localButtons.length === 1) {
                 const m = Math.floor((new Date() - new Date(button.stolenAt))/1000/60);
-                if (m < 5 && !DEBUG) return; //5 minute moratorium on button stealing from this website
+                if (m < 1 && !DEBUG) return; //5 minute moratorium on button stealing from this website
             }
         }
         const { code, text } = getCode(localButtons);
