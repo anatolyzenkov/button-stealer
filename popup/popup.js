@@ -102,7 +102,7 @@ maximumInput.addEventListener('input', () => {
 })
 
 document.getElementById('remove-all').addEventListener('click', () => {
-    if (confirm("Remove buttons?") == true) {
+    if (window.confirm("Remove buttons?") == true) {
         chrome.runtime.sendMessage({
             type: 'remove-all',
             target: 'background'
