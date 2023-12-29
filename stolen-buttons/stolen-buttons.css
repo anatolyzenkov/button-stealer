@@ -9,19 +9,51 @@
 }
 
 body {
+    font-family: 'Space Mono', monospace;
     background-color: var(--color-background);
     color: var(--color-foreground);
+    padding: 12px;
 }
 
 .holder {
-    padding: 16px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    /* justify-content: center; */
-    justify-content: space-evenly;
+    gap: 4px;
+    justify-content: space-around;
 }
 
 .wrapper {
-    padding: 8px;
+    padding: 4px;
+    max-width: 100%;
+    * {
+        max-width: 100%;
+        text-wrap: unset !important;
+    }
+}
+
+.holder a, .holder button {
+    margin-inline: 0 !important;
+}
+
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 4em;
+    line-height: 88%;
+}
+
+@media screen and (min-width: 769px) {
+    body {
+        padding: 16px;
+    }
+    .holder {
+        gap: 8px;
+        justify-content: space-between;
+    }
+    h1 {
+        text-align: left;
+        margin-top: 0;
+        font-size: 6em;
+    }
 }

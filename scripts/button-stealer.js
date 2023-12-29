@@ -301,7 +301,7 @@
                 stripCSS(cloneButton, button);
                 if (cloneButton.style.position === 'absolute') cloneButton.style.position = 'relative';
                 if (j === 0) {
-                    cloneButton.setAttribute('href', '#');
+                    cloneButton.removeAttribute('href');
                 } else {
                     cloneButton.removeAttribute('onclick');
                 }
@@ -347,7 +347,7 @@
             localButtons.push(button);
             if (localButtons.length === 1) {
                 const m = Math.floor((new Date() - new Date(button.stolenAt))/1000/60);
-                if (m < 1 && !DEBUG) return; //5 minute moratorium on button stealing from this website
+                if (m < 5 && !DEBUG) return; //5 minute moratorium on button stealing from this website
             }
         }
         const { code, text } = getCode(localButtons);

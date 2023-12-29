@@ -7,6 +7,13 @@ html {
   --width: 400px;
   --height: 500px;
   --gap: 16px;
+  --color-foreground: var(--color-black);
+  --color-background: var(--color-white);
+  
+  @media (prefers-color-scheme: dark) {
+    --color-foreground: var(--color-white);
+    --color-background: var(--color-black);
+  }
 }
 
 body {
@@ -74,6 +81,13 @@ p {
   transition: color .2s, background-color .2s;
 }
 
+.button.critical {
+  @media (prefers-color-scheme: dark) {
+    color: var(--color-background);
+    background-color: var(--color-foreground);
+  }
+}
+
 .button.critical:hover {
   color: var(--color-white);
   background-color: var(--color-dark-red);
@@ -88,9 +102,10 @@ p {
 }
 
 #settings {
+  color: var(--color-foreground);
   position: fixed;
   overflow: scroll;
-  background-color: var(--color-white);
+  background-color: var(--color-background);
   left: var(--width);
   top: 0;
   transition: left 0.3s cubic-bezier(0.83, 0, 0.17, 1);
@@ -113,7 +128,9 @@ form {
 
 input {
   box-sizing: border-box;
-  border: 2px solid var(--color-black);
+  border: 2px solid var(--color-foreground);
+  color: var(--color-foreground);
+  background-color: var(--color-background);
   padding: 30px 44px;
   border-radius: 48px;
   width: 100%;
@@ -130,7 +147,7 @@ input[type="range"] {
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-  background: var(--color-black);
+  background: var(--color-foreground);
   height: 2px;
   transition: background-color .2s;
 }
@@ -139,11 +156,11 @@ input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   margin-top: -42px;
-  background-color: var(--color-white);
+  background-color: var(--color-background);
   height: 88px;
   width: 88px;
   border-radius: 44px;
-  border: 2px solid var(--color-black);
+  border: 2px solid var(--color-foreground);
   box-sizing: border-box;
   transition: border .2s;
 }
@@ -169,7 +186,7 @@ input:focus {
 }
 
 .navbar {
-  background-color: var(--color-white);
+  background-color: var(--color-background);
   position: sticky;
   padding: var(--gap);
   top: 0;
@@ -196,17 +213,17 @@ input:focus {
 }
 
 .show-settings #switch .dash.dash-0 {
-  background-color: var(--color-black);
+  background-color: var(--color-foreground);
   transform: matrix(1, 0.5, -0.5, 0.85, 0, 8);
 }
 
 .show-settings #switch .dash.dash-1 {
-  background-color: var(--color-black);
+  background-color: var(--color-foreground);
   transform: scale(0, 1);
 }
 
 .show-settings #switch .dash.dash-2 {
-  background-color: var(--color-black);
+  background-color: var(--color-foreground);
   transform: matrix(1, -0.5, 0.5, 0.85, 0, -8)
 }
 
