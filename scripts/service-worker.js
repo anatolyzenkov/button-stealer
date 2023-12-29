@@ -82,6 +82,7 @@ const handleMessages = async (message) => {
             break;
         case 'update-ignore':
             chrome.storage.local.set({ ignore: message.value.split(' ') });
+            break;
         case 'remove-all':
             chrome.storage.local.set({ buttons: [], upload: [] })
             break;

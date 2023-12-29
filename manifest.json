@@ -1,6 +1,6 @@
 {
   "name": "Button stealer",
-  "description": "Steal buttons from websites you visit",
+  "description": "Steals buttons from the websites you visit. Do your usual everyday online stuff and watch the collection of your stolen buttons grow.",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
