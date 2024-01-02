@@ -14,7 +14,7 @@
     "128": "images/icon-128.png"
   },
   "permissions": [
-    "storage", "webNavigation", "offscreen"
+    "storage", "offscreen"
   ],
   "background": {
     "service_worker": "scripts/service-worker.js",
