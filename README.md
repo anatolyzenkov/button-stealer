@@ -7,6 +7,8 @@ Do your usual everyday online stuff and watch the collection of your stolen butt
 
 You can [install](https://chromewebstore.google.com/detail/button-stealer/iiikidmnimlpahbeknmkeonmemajpccj?hl=en) Button Stealer directly from the Chrome Webstore. Or you can use the code of this repo to [load it unpacked](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked).
 
+Button Stealer works locally and **doesn’t send data anywhere**, so your data remains private.
+
 <picture>
   <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/RgFjNbWSbeLcPlqrOuOLt/1bf63b014b23d85d31ebac890a3d203c/Buttons_2x.png?w=1280&fm=webp">
   <img alt="Icons collected by Button Stealer" src="https://images.ctfassets.net/7k34737a5krf/RgFjNbWSbeLcPlqrOuOLt/1bf63b014b23d85d31ebac890a3d203c/Buttons_2x.png?w=1280&fm=jpg" width="455px">
@@ -16,5 +18,3 @@ You can [install](https://chromewebstore.google.com/detail/button-stealer/iiikid
   <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/3jHtgl8EAkl6eXxaY3Rcgg/c3675b4812c75662e3b1317ca53720a0/UI_2x.png?w=1280&fm=webp">
   <img alt="Button Stealer UI" src="https://images.ctfassets.net/7k34737a5krf/3jHtgl8EAkl6eXxaY3Rcgg/c3675b4812c75662e3b1317ca53720a0/UI_2x.png?w=1280&fm=jpg" width="455px">
 </picture>
-
-Button Stealer works locally and **doesn’t send data anywhere**, so your data remains private.
