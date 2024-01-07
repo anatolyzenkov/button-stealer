@@ -1,5 +1,6 @@
 const MAXIMUM = 'maximum';
-const CNTFL_API_KEY = 'contentManagementApiKey';
+const CNTFL_MGMT_API_KEY = 'contentManagementApiKey';
+const CNTFL_DLVR_API_KEY = 'contentDeliveryApiKey';
 const CNTFL_SPACE_ID = 'spaceId';
 const CNTFL_TYPE_ID = 'contentTypeId';
 const CONTENTFUL = 'contentful';
@@ -18,17 +19,23 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
                 maximum: 200,
                 contentful: {
                     contentManagementApiKey: '',
+                    contentDeliveryApiKey: '',
                     spaceId: '',
                     contentTypeId: ''
                 }
             });
             break;
         case 'update':
-            const { buttons } = await chrome.storage.local.get(BUTTONS);
+            const { buttons, upload, contentful } = await chrome.storage.local.get([BUTTONS, UPLOAD, CONTENTFUL]);
             if (buttons.length === 0) break;
             let counter = buttons.length - 1;
-            buttons.map(button => button.id = counter--);
+            buttons.map(button => { button.id = counter--; button.hidden = false;} );
             chrome.storage.local.set({ buttons: buttons });
+            if (!upload) chrome.storage.local.set({ 'upload': [] });
+            if (!contentful.contentDeliveryApiKey) {
+                contentful.contentDeliveryApiKey = '';
+                chrome.storage.local.set({ 'contentful': contentful });
+            }
             break;
         default:
             break;
@@ -59,7 +66,13 @@ const uploadOffscreen = async () => {
         closeOffscreenDocument();
         return;
     }
-    if (!(contentful[CNTFL_API_KEY] && contentful[CNTFL_SPACE_ID] && contentful[CNTFL_TYPE_ID])) return;
+    console.log('1');
+    if (!(contentful[CNTFL_MGMT_API_KEY] && contentful[CNTFL_DLVR_API_KEY] && contentful[CNTFL_SPACE_ID] && contentful[CNTFL_TYPE_ID])) {
+        console.log('1a');
+        chrome.storage.local.set({ 'upload': [] });
+        return;
+    }
+    console.log('2');
     if (!(await hasDocument())) {
         await chrome.offscreen.createDocument({
             url: OFFSCREEN_DOCUMENT_PATH,
@@ -68,8 +81,9 @@ const uploadOffscreen = async () => {
         });
     }
     const button = upload[upload.length - 1];
+    const type = button.hasOwnProperty('code') ? 'upload-stolen-button' : 'remove-stolen-button';
     chrome.runtime.sendMessage({
-        type: 'upload-stolen-button',
+        type: type,
         target: 'offscreen',
         button: button,
         contentful: contentful
@@ -97,24 +111,29 @@ const handleMessages = async (message) => {
             chrome.storage.local.set({ buttons: [], upload: [] })
             break;
         case 'remove-buttons':
-            const selected = JSON.parse(message.value);
-            const { buttons } = await chrome.storage.local.get('buttons');
-            selected.forEach(s => {
-                for (let i = 0; i < buttons.length; i++) {
-                    const button = buttons[i];
-                    if (button.stolenAt === s.stolenAt) {
-                        if (button.name === s.name) {
-                            button.hidden = true;
-                            break;
-                        }
-                    }
-                }
-            });
-            chrome.storage.local.set({ buttons: buttons });
+            handleRemoveButtons(JSON.parse(message.value));
             break;
         default:
             break;
     }
+}
+
+const handleRemoveButtons = async (selected) => {
+    const { buttons, upload } = await chrome.storage.local.get([BUTTONS, UPLOAD]);
+    selected.forEach(s => {
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i];
+            if (button.stolenAt === s.stolenAt) {
+                if (button.name === s.name) {
+                    button.hidden = true;
+                    break;
+                }
+            }
+        }
+    });
+    chrome.storage.local.set({ buttons: buttons });
+    upload.unshift(...selected);
+    chrome.storage.local.set({ upload: upload });
 }
 
 chrome.runtime.onMessage.addListener(handleMessages);

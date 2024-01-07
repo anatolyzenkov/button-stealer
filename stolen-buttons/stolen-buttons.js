@@ -6,7 +6,6 @@ const sendToBackground = (type, value) => {
 
 const getButtons = async () => {
     const { buttons } = await chrome.storage.local.get('buttons');
-    const target = document.getElementById('buttons');
     const add = [];
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
@@ -30,14 +29,14 @@ const getButtons = async () => {
             if (button.hidden) div.remove();
         }
     }
-    target.prepend(...add);
+    document.getElementById('buttons').prepend(...add);
 }
 
 const deleteButtons = async () => {
     const value = Array.from(document.querySelectorAll("#buttons div.button.selected")).map(selected => {
         return {
             stolenAt: selected.dataset.stolenAt,
-            name: selected.dataset.name
+            name: selected.dataset.name,
         }
     });
     sendToBackground('remove-buttons', JSON.stringify(value));

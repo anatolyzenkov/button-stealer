@@ -45,12 +45,15 @@ h2 {
   line-height: 16px;
 }
 
+h3 {
+  text-transform: uppercase;
+}
+
 h3,
 label,
 .label {
   font-size: 16px;
   line-height: 100%;
-  text-transform: uppercase;
   margin: 0;
 }
 
@@ -83,6 +86,7 @@ p {
   color: var(--color-white);
   cursor: pointer;
   transition: color .2s, background-color .2s;
+  text-transform: uppercase;
 }
 
 .button.critical {
