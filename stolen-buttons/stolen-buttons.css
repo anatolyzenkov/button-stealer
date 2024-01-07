@@ -1,10 +1,15 @@
 :root {
-    --color-foreground: #000;
-    --color-background: #FFF;
+    --color-orange: oklch(0.72 0.23 35.81);
+    --color-white: oklch(1 0 0);
+    --color-black: oklch(0 0 0);
+    --color-light-gray: oklch(0.82 0 0);
+    --color-dark-red: oklch(0.54 0.24 29.62);
+    --color-foreground: var(--color-black);
+    --color-background: var(--color-white);
 
     @media (prefers-color-scheme: dark) {
-        --color-foreground: #FFF;
-        --color-background: #000;
+        --color-foreground: var(--color-white);
+        --color-background: var(--color-black);
     }
 }
 
@@ -15,7 +20,7 @@ body {
     padding: 12px;
 }
 
-.holder {
+#buttons {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -23,7 +28,7 @@ body {
     justify-content: space-around;
 }
 
-.wrapper {
+.button {
     padding: 4px;
     max-width: 100%;
     * {
@@ -32,7 +37,7 @@ body {
     }
 }
 
-.holder a, .holder button {
+#buttons a, #buttons button {
     margin-inline: 0 !important;
 }
 
@@ -47,7 +52,7 @@ h1 {
     body {
         padding: 16px;
     }
-    .holder {
+    #buttons {
         gap: 8px;
         justify-content: space-between;
     }
@@ -56,4 +61,21 @@ h1 {
         margin-top: 0;
         font-size: 6em;
     }
+}
+
+body.delete-mode #delete-mode {
+    visibility: hidden;
+}
+
+body.delete-mode .button.selected {
+    border: solid 2px var(--color-dark-red);
+    box-sizing: border-box;
+}
+
+body.delete-mode #delete, body.delete-mode #exit-mode {
+    visibility: visible;
+}
+
+#delete, #exit-mode {
+    visibility: hidden;
 }

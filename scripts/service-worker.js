@@ -8,19 +8,30 @@ const BUTTONS = 'buttons';
 const UPLOAD = 'upload';
 const OFFSCREEN_DOCUMENT_PATH = '/offscreen/offscreen.html';
 
-chrome.runtime.onInstalled.addListener(({ reason }) => {
-    if (reason === 'install') {
-        chrome.storage.local.set({
-            buttons: [],
-            upload: [],
-            ignore: [],
-            maximum: 200,
-            contentful: {
-                contentManagementApiKey: '',
-                spaceId: '',
-                contentTypeId: ''
-            }
-        });
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+    switch (reason) {
+        case 'install':
+            chrome.storage.local.set({
+                buttons: [],
+                upload: [],
+                ignore: [],
+                maximum: 200,
+                contentful: {
+                    contentManagementApiKey: '',
+                    spaceId: '',
+                    contentTypeId: ''
+                }
+            });
+            break;
+        case 'update':
+            const { buttons } = await chrome.storage.local.get(BUTTONS);
+            if (buttons.length === 0) break;
+            let counter = buttons.length - 1;
+            buttons.map(button => button.id = counter--);
+            chrome.storage.local.set({ buttons: buttons });
+            break;
+        default:
+            break;
     }
 });
 
@@ -67,11 +78,10 @@ const uploadOffscreen = async () => {
 
 const handleMessages = async (message) => {
     if (message.target !== 'background') return;
-    console.log(message);
     switch (message.type) {
         case 'stolen-button-uploaded':
             const { upload } = await chrome.storage.local.get(UPLOAD);
-            upload.pop()
+            upload.pop();
             chrome.storage.local.set({ 'upload': upload });
             break;
         case 'update-maximum':
@@ -85,6 +95,22 @@ const handleMessages = async (message) => {
             break;
         case 'remove-all':
             chrome.storage.local.set({ buttons: [], upload: [] })
+            break;
+        case 'remove-buttons':
+            const selected = JSON.parse(message.value);
+            const { buttons } = await chrome.storage.local.get('buttons');
+            selected.forEach(s => {
+                for (let i = 0; i < buttons.length; i++) {
+                    const button = buttons[i];
+                    if (button.stolenAt === s.stolenAt) {
+                        if (button.name === s.name) {
+                            button.hidden = true;
+                            break;
+                        }
+                    }
+                }
+            });
+            chrome.storage.local.set({ buttons: buttons });
             break;
         default:
             break;

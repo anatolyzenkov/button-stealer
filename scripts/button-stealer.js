@@ -352,7 +352,14 @@
         }
         const { code, text } = getCode(localButtons);
         if (!code) return;
+        let id = 0;
+        if (buttons.length > 0) {
+            if (buttons[0].hasOwnProperty('id')) {
+                id = buttons[0].id + 1;
+            }
+        }
         const button = {
+            id: id,
             name: `"${text}" from ${window.location.hostname}`,
             code: code,
             source: window.location.origin + window.location.pathname,

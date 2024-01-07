@@ -12,11 +12,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='/styles/normalize.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='stolen-buttons.css'>
-    <script src='stolen-buttons.js'></script>
 </head>
 <body>
     <h1>Stolen Buttons</h1>
-    <div id="target" class="holder">
-    </div>
+    <nav>
+        <button type="button" id="delete-mode">Delete Mode</button>
+        <button type="button" id="exit-mode">Exit</button>
+        <button type="button" id="delete" disabled>Delete</button>
+    </nav>
+    <div id="buttons"></div>
+    <script src='stolen-buttons.js'></script>
 </body>
 </html>
