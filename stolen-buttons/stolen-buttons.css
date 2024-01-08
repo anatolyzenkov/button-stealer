@@ -68,14 +68,38 @@ body.delete-mode #delete-mode {
     visibility: hidden;
 }
 
-body.delete-mode .button * {
+body.delete-mode .button > * {
     pointer-events: none;
 }
 
 body.delete-mode .button.selected {
-    border: solid 2px var(--color-dark-red);
-    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
 }
+
+body.delete-mode .button.selected > * {
+    /* visibility: hidden; */
+    opacity: .2;
+}
+
+body.delete-mode .button.selected::after {
+    content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L31%2031%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M31%201L1%2031%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    left: 50%;
+    top: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+    stroke: currentColor !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    body.delete-mode .button.selected::after {
+        content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L31%2031%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M31%201L1%2031%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");
+    }
+}
+
 
 body.delete-mode #delete, body.delete-mode #exit-mode {
     visibility: visible;

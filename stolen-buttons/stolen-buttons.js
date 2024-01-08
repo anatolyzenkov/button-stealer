@@ -23,6 +23,9 @@ const getButtons = async () => {
                     div.classList.toggle('selected');
                 }
             });
+            div.children[0].addEventListener('click', ()=>{
+                window.open(button.source, '_blank').focus();
+            });
             div.dataset.id = button.id;
             div.dataset.name = button.name;
             div.dataset.stolenAt = button.stolenAt;
