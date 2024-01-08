@@ -62,17 +62,18 @@ chrome.storage.onChanged.addListener(async (obj) => {
 
 const uploadOffscreen = async () => {
     const { upload, contentful } = await chrome.storage.local.get([UPLOAD, CONTENTFUL]);
-    if (upload.length === 0) {
-        closeOffscreenDocument();
-        return;
-    }
-    console.log('1');
     if (!(contentful[CNTFL_MGMT_API_KEY] && contentful[CNTFL_DLVR_API_KEY] && contentful[CNTFL_SPACE_ID] && contentful[CNTFL_TYPE_ID])) {
-        console.log('1a');
-        chrome.storage.local.set({ 'upload': [] });
+        if (upload.length > 0) chrome.storage.local.set({ 'upload': [] });
         return;
     }
-    console.log('2');
+    if (upload.length === 0) {
+        chrome.runtime.sendMessage({
+            type: 'full-sync',
+            target: 'offscreen',
+            contentful: contentful
+        });
+        return;
+    }
     if (!(await hasDocument())) {
         await chrome.offscreen.createDocument({
             url: OFFSCREEN_DOCUMENT_PATH,
@@ -96,7 +97,15 @@ const handleMessages = async (message) => {
         case 'stolen-button-uploaded':
             const { upload } = await chrome.storage.local.get(UPLOAD);
             upload.pop();
+            chrome.runtime.sendMessage({
+                type: 'full-refresh',
+                target: 'stolen-buttons',
+            });
             chrome.storage.local.set({ 'upload': upload });
+            break;
+        case 'contentful-syncronized':
+            chrome.storage.local.set({ buttons: JSON.parse(message.value) });
+            closeOffscreenDocument();
             break;
         case 'update-maximum':
             chrome.storage.local.set({ maximum: parseInt(message.value) });

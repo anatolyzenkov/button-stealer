@@ -26,6 +26,7 @@ body {
     align-items: center;
     gap: 4px;
     justify-content: space-around;
+    font-size: 16px;
 }
 
 .button {
@@ -65,6 +66,10 @@ h1 {
 
 body.delete-mode #delete-mode {
     visibility: hidden;
+}
+
+body.delete-mode .button * {
+    pointer-events: none;
 }
 
 body.delete-mode .button.selected {

@@ -85,6 +85,46 @@ const remove = async (button, contentful) => {
         });
 }
 
+const sync = async (cntfl) => {
+    const content_delivery_api_key = cntfl[CNTFL_DLVR_API_KEY];
+    const space_id = cntfl[CNTFL_SPACE_ID];
+    const content_type_id = cntfl[CNTFL_TYPE_ID];
+    const client = contentful.createClient({
+        accessToken: content_delivery_api_key,
+        space: space_id
+    });
+    const buttons = [];
+    let skip = 0;
+    let total = Infinity;
+    while (skip < total) {
+        const entries = await client.getEntries({
+            content_type: content_type_id,
+            locale: 'en-US',
+            order: '-sys.createdAt',
+            select: 'fields, sys.createdAt',
+            skip: skip
+        });
+        total = entries.total;
+        skip += entries.limit;
+        buttons.push(...entries.items);
+    }
+    const value = buttons.map((button, i) => {
+        return {
+            id: buttons.length - i - 1,
+            name: button.fields.name,
+            code: button.fields.code,
+            source: button.fields.source,
+            text: button.fields.text,
+            stolenAt: button.sys.createdAt,
+        }
+    });
+    chrome.runtime.sendMessage({
+        type: 'contentful-syncronized',
+        target: 'background',
+        value: JSON.stringify(value)
+    });
+}
+
 const handleMessages = async (message) => {
     if (message.target !== 'offscreen') return false;
     switch (message.type) {
@@ -93,6 +133,9 @@ const handleMessages = async (message) => {
             break;
         case 'remove-stolen-button':
             await remove(message.button, message.contentful);
+            break;
+        case 'full-sync':
+            await sync(message.contentful);
             break;
         default:
             return false;

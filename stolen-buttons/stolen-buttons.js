@@ -1,4 +1,5 @@
 const DELETE_MODE = 'delete-mode';
+let fullRefresh = false;
 
 const sendToBackground = (type, value) => {
     chrome.runtime.sendMessage({ type, value, target: 'background' });
@@ -7,9 +8,10 @@ const sendToBackground = (type, value) => {
 const getButtons = async () => {
     const { buttons } = await chrome.storage.local.get('buttons');
     const add = [];
+    if (fullRefresh) document.getElementById('buttons').innerHTML = '';
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
-        let div = document.querySelector(`[data-id="${button.id}"]`);
+        let div = fullRefresh ? null : document.querySelector(`[data-id="${button.id}"]`);
         if (div === null) {
             if (button.hidden) continue;
             div = document.createElement('div');
@@ -68,3 +70,16 @@ document.getElementById('delete').addEventListener('click', ()=> {
     deleteButtons();
     document.getElementById('delete').setAttribute('disabled', true);
 });
+
+const handleMessages = async (message) => {
+    if (message.target !== 'stolen-buttons') return false;
+    switch (message.type) {
+        case 'full-refresh':
+            fullRefresh = true;
+            break;
+        default:
+            return false;
+    }
+}
+
+chrome.runtime.onMessage.addListener(handleMessages);
