@@ -14,13 +14,19 @@
     <link rel='stylesheet' type='text/css' media='screen' href='stolen-buttons.css'>
 </head>
 <body>
-    <h1>Stolen Buttons</h1>
-    <nav>
-        <button type="button" id="delete-mode">Delete Mode</button>
-        <button type="button" id="exit-mode">Exit</button>
-        <button type="button" id="delete" disabled>Delete</button>
+    <nav id="navbar">
+        <div class="left">
+            <a class="button" type="button" id="exit-mode">Exit</a>
+        </div>
+        <div class="center">
+            <h1 id="title">Stolen Buttons</h1>
+        </div>
+        <div class="right">
+            <a class="button" type="button" id="delete-mode">Edit</a>
+            <a class="button critical disabled" type="button" id="delete" disabled>Remove</a>
+        </div>
     </nav>
-    <div id="buttons"></div>
+    <div id="stolen-buttons"></div>
     <script src='stolen-buttons.js'></script>
 </body>
 </html>

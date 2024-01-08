@@ -18,9 +18,10 @@ body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     padding: 12px;
+    margin: 0;
 }
 
-#buttons {
+#stolen-buttons {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -29,16 +30,18 @@ body {
     font-size: 16px;
 }
 
-.button {
+.stolen-button {
     padding: 4px;
     max-width: 100%;
+
     * {
         max-width: 100%;
         text-wrap: unset !important;
     }
 }
 
-#buttons a, #buttons button {
+#stolen-buttons a,
+#stolen-buttons button {
     margin-inline: 0 !important;
 }
 
@@ -47,42 +50,97 @@ h1 {
     text-transform: uppercase;
     font-size: 4em;
     line-height: 88%;
+    margin: 0;
+}
+
+nav#navbar {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 32px;
+    margin-top: 12px;
+}
+
+nav#navbar .center {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+    margin-top: 4px;
+}
+
+nav#navbar .left,
+nav#navbar .right {
+    width: 80px;
+    display: flex;
+}
+
+nav#navbar .right {
+    justify-content: end;
+    margin-right: -8px;
+}
+nav#navbar .left {
+    justify-content: start;
+    margin-left: -8px;
 }
 
 @media screen and (min-width: 769px) {
     body {
         padding: 16px;
     }
-    #buttons {
+
+    #stolen-buttons {
         gap: 8px;
         justify-content: space-between;
     }
+
     h1 {
-        text-align: left;
-        margin-top: 0;
         font-size: 6em;
+    }
+
+    nav#navbar {
+        margin-bottom: 48px;
+        margin-top: 16px;
+        align-items: center;
+    }
+
+    nav#navbar .center {
+        justify-content: unset;
+        margin-top: 0;
+    }
+
+    nav#navbar .left,
+    nav#navbar .right {
+        width: auto;
+    }
+    nav#navbar .left {
+        order: 1;
+    }
+    nav#navbar .right {
+        order: 2;
     }
 }
 
 body.delete-mode #delete-mode {
     visibility: hidden;
+    display: none;
+    width: 0;
+    height: 0;
+    overflow: hidden;
 }
 
-body.delete-mode .button > * {
+body.delete-mode .stolen-button>* {
     pointer-events: none;
 }
 
-body.delete-mode .button.selected {
+body.delete-mode .stolen-button.selected {
     position: relative;
     overflow: hidden;
 }
 
-body.delete-mode .button.selected > * {
-    /* visibility: hidden; */
+body.delete-mode .stolen-button.selected>* {
     opacity: .2;
 }
 
-body.delete-mode .button.selected::after {
+body.delete-mode .stolen-button.selected::after {
     content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L31%2031%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M31%201L1%2031%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");
     position: absolute;
     width: 32px;
@@ -91,20 +149,52 @@ body.delete-mode .button.selected::after {
     top: 50%;
     margin-top: -16px;
     margin-left: -16px;
-    stroke: currentColor !important;
+    stroke: currentcolor !important;
 }
 
 @media (prefers-color-scheme: dark) {
-    body.delete-mode .button.selected::after {
+    body.delete-mode .stolen-button.selected::after {
         content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L31%2031%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M31%201L1%2031%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");
     }
 }
 
 
-body.delete-mode #delete, body.delete-mode #exit-mode {
+body.delete-mode #delete,
+body.delete-mode #exit-mode {
     visibility: visible;
+    display: block;
+    width: auto;
+    height: auto;
+    overflow: unset;
 }
 
-#delete, #exit-mode {
+#delete,
+#exit-mode {
     visibility: hidden;
+    display: none;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+nav#navbar a.button {
+    text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    line-height: 100%;
+    padding: 8px 8px;
+    border-radius: 4px;
+    color: currentColor;
+    cursor: pointer;
+    transition: color .2s, background-color .2s;
+    text-transform: uppercase;
+}
+
+nav#navbar a.button.critical {
+    color: var(--color-dark-red);
+}
+
+nav#navbar a.button.disabled {
+    pointer-events: none;
+    color: var(--color-light-gray);
 }

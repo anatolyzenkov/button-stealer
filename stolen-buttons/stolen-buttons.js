@@ -8,19 +8,23 @@ const sendToBackground = (type, value) => {
 const getButtons = async () => {
     const { buttons } = await chrome.storage.local.get('buttons');
     const add = [];
-    if (fullRefresh) document.getElementById('buttons').innerHTML = '';
+    if (fullRefresh) document.getElementById('stolen-buttons').innerHTML = '';
     for (let i = 0; i < buttons.length; i++) {
         const button = buttons[i];
         let div = fullRefresh ? null : document.querySelector(`[data-id="${button.id}"]`);
         if (div === null) {
             if (button.hidden) continue;
             div = document.createElement('div');
-            div.classList.add('button');
+            div.classList.add('stolen-button');
             div.innerHTML = button.code;
             div.addEventListener('click', ()=> {
                 if (document.body.classList.contains(DELETE_MODE)) {
-                    document.getElementById('delete').removeAttribute('disabled');
                     div.classList.toggle('selected');
+                    if (Array.from(document.querySelectorAll("#stolen-buttons div.stolen-button.selected")).length > 0) {
+                        document.getElementById('delete').classList.remove('disabled');
+                    } else {
+                        document.getElementById('delete').classList.add('disabled');
+                    }
                 }
             });
             div.children[0].addEventListener('click', ()=>{
@@ -34,11 +38,11 @@ const getButtons = async () => {
             if (button.hidden) div.remove();
         }
     }
-    document.getElementById('buttons').prepend(...add);
+    document.getElementById('stolen-buttons').prepend(...add);
 }
 
 const deleteButtons = async () => {
-    const value = Array.from(document.querySelectorAll("#buttons div.button.selected")).map(selected => {
+    const value = Array.from(document.querySelectorAll("#stolen-buttons div.stolen-button.selected")).map(selected => {
         return {
             stolenAt: selected.dataset.stolenAt,
             name: selected.dataset.name,
@@ -58,20 +62,22 @@ chrome.storage.onChanged.addListener((obj) => {
 });
 
 document.getElementById('delete-mode').addEventListener('click', ()=> {
+    document.getElementById('title').innerText = 'Edit';
     document.body.classList.add(DELETE_MODE);
 });
 
 document.getElementById('exit-mode').addEventListener('click', ()=> {
-    document.querySelectorAll("#buttons div.button.selected").forEach(button => {
+    document.querySelectorAll("#stolen-buttons div.stolen-button.selected").forEach(button => {
         button.classList.remove('selected');
     });
-    document.getElementById('delete').setAttribute('disabled', true);
+    document.getElementById('delete').classList.add('disabled');
+    document.getElementById('title').innerText = 'Stolen Buttons';
     document.body.classList.remove(DELETE_MODE);
 });
 
 document.getElementById('delete').addEventListener('click', ()=> {
     deleteButtons();
-    document.getElementById('delete').setAttribute('disabled', true);
+    document.getElementById('delete').classList.add('disabled');
 });
 
 const handleMessages = async (message) => {
