@@ -1,5 +1,6 @@
 const MAXIMUM = 'maximum';
-const CNTFL_API_KEY = 'contentManagementApiKey';
+const CNTFL_MGMT_API_KEY = 'contentManagementApiKey';
+const CNTFL_DLVR_API_KEY = 'contentDeliveryApiKey';
 const CNTFL_SPACE_ID = 'spaceId';
 const CNTFL_TYPE_ID = 'contentTypeId';
 const CONTENTFUL = 'contentful';
@@ -8,19 +9,36 @@ const BUTTONS = 'buttons';
 const UPLOAD = 'upload';
 const OFFSCREEN_DOCUMENT_PATH = '/offscreen/offscreen.html';
 
-chrome.runtime.onInstalled.addListener(({ reason }) => {
-    if (reason === 'install') {
-        chrome.storage.local.set({
-            buttons: [],
-            upload: [],
-            ignore: [],
-            maximum: 200,
-            contentful: {
-                contentManagementApiKey: '',
-                spaceId: '',
-                contentTypeId: ''
+chrome.runtime.onInstalled.addListener(async ({ reason }) => {
+    switch (reason) {
+        case 'install':
+            chrome.storage.local.set({
+                buttons: [],
+                upload: [],
+                ignore: [],
+                maximum: 200,
+                contentful: {
+                    contentManagementApiKey: '',
+                    contentDeliveryApiKey: '',
+                    spaceId: '',
+                    contentTypeId: ''
+                }
+            });
+            break;
+        case 'update':
+            const { buttons, upload, contentful } = await chrome.storage.local.get([BUTTONS, UPLOAD, CONTENTFUL]);
+            if (buttons.length === 0) break;
+            let counter = buttons.length - 1;
+            buttons.map(button => { button.id = counter--; button.hidden = false;} );
+            chrome.storage.local.set({ buttons: buttons });
+            if (!upload) chrome.storage.local.set({ 'upload': [] });
+            if (!contentful.contentDeliveryApiKey) {
+                contentful.contentDeliveryApiKey = '';
+                chrome.storage.local.set({ 'contentful': contentful });
             }
-        });
+            break;
+        default:
+            break;
     }
 });
 
@@ -44,11 +62,18 @@ chrome.storage.onChanged.addListener(async (obj) => {
 
 const uploadOffscreen = async () => {
     const { upload, contentful } = await chrome.storage.local.get([UPLOAD, CONTENTFUL]);
-    if (upload.length === 0) {
-        closeOffscreenDocument();
+    if (!(contentful[CNTFL_MGMT_API_KEY] && contentful[CNTFL_DLVR_API_KEY] && contentful[CNTFL_SPACE_ID] && contentful[CNTFL_TYPE_ID])) {
+        if (upload.length > 0) chrome.storage.local.set({ 'upload': [] });
         return;
     }
-    if (!(contentful[CNTFL_API_KEY] && contentful[CNTFL_SPACE_ID] && contentful[CNTFL_TYPE_ID])) return;
+    if (upload.length === 0) {
+        chrome.runtime.sendMessage({
+            type: 'full-sync',
+            target: 'offscreen',
+            contentful: contentful
+        });
+        return;
+    }
     if (!(await hasDocument())) {
         await chrome.offscreen.createDocument({
             url: OFFSCREEN_DOCUMENT_PATH,
@@ -57,8 +82,9 @@ const uploadOffscreen = async () => {
         });
     }
     const button = upload[upload.length - 1];
+    const type = button.hasOwnProperty('code') ? 'upload-stolen-button' : 'remove-stolen-button';
     chrome.runtime.sendMessage({
-        type: 'upload-stolen-button',
+        type: type,
         target: 'offscreen',
         button: button,
         contentful: contentful
@@ -67,12 +93,19 @@ const uploadOffscreen = async () => {
 
 const handleMessages = async (message) => {
     if (message.target !== 'background') return;
-    console.log(message);
     switch (message.type) {
         case 'stolen-button-uploaded':
             const { upload } = await chrome.storage.local.get(UPLOAD);
-            upload.pop()
+            upload.pop();
+            chrome.runtime.sendMessage({
+                type: 'full-refresh',
+                target: 'stolen-buttons',
+            });
             chrome.storage.local.set({ 'upload': upload });
+            break;
+        case 'contentful-syncronized':
+            chrome.storage.local.set({ buttons: JSON.parse(message.value) });
+            closeOffscreenDocument();
             break;
         case 'update-maximum':
             chrome.storage.local.set({ maximum: parseInt(message.value) });
@@ -86,9 +119,30 @@ const handleMessages = async (message) => {
         case 'remove-all':
             chrome.storage.local.set({ buttons: [], upload: [] })
             break;
+        case 'remove-buttons':
+            handleRemoveButtons(JSON.parse(message.value));
+            break;
         default:
             break;
     }
+}
+
+const handleRemoveButtons = async (selected) => {
+    const { buttons, upload } = await chrome.storage.local.get([BUTTONS, UPLOAD]);
+    selected.forEach(s => {
+        for (let i = 0; i < buttons.length; i++) {
+            const button = buttons[i];
+            if (button.stolenAt === s.stolenAt) {
+                if (button.name === s.name) {
+                    button.hidden = true;
+                    break;
+                }
+            }
+        }
+    });
+    chrome.storage.local.set({ buttons: buttons });
+    upload.unshift(...selected);
+    chrome.storage.local.set({ upload: upload });
 }
 
 chrome.runtime.onMessage.addListener(handleMessages);
