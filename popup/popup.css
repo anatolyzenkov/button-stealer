@@ -252,9 +252,9 @@ input:focus {
   right: 0;
   background-image: url(/images/noise.png);
   mix-blend-mode: soft-light;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-size: 128px 128px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-size: 200px;
 }
 
 #buttons {
