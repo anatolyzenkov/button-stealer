@@ -250,11 +250,11 @@ input:focus {
   bottom: 0;
   left: 0;
   right: 0;
-  backdrop-filter: blur(6px);
-  background-color: #ff64302d;
   background-image: url(/images/noise.png);
-  background-blend-mode: soft-light;
-  background-size: 256px 256px;
+  mix-blend-mode: soft-light;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-size: 200px;
 }
 
 #buttons {
@@ -262,6 +262,7 @@ input:focus {
     flex-wrap: wrap;
     align-items: center;
     transform: scale(1.5);
+    background-color: var(--color-orange);
 }
 
 #buttons .button-wrapper {
