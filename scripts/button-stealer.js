@@ -384,4 +384,18 @@
     })
 
     timeoutId = setTimeout(stealButton, 500);
+
+    const sendColorModeToBackground = (isDark) => {
+        chrome.runtime.sendMessage({
+            type: 'color-scheme-changed',
+            isDark: isDark,
+            target: 'background'
+        });
+    }
+
+    const colorSchemeDispatcher = window.matchMedia('(prefers-color-scheme: dark)');
+    sendColorModeToBackground(colorSchemeDispatcher.matches);
+    colorSchemeDispatcher.addEventListener('change', e => {
+        sendColorModeToBackground(e.matches);
+    });
 })();
