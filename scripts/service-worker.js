@@ -8,6 +8,7 @@ const IGNORE = 'ignore';
 const BUTTONS = 'buttons';
 const UPLOAD = 'upload';
 const OFFSCREEN_DOCUMENT_PATH = '/offscreen/offscreen.html';
+let isDark = false;
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
     switch (reason) {
@@ -121,6 +122,19 @@ const handleMessages = async (message) => {
             break;
         case 'remove-buttons':
             handleRemoveButtons(JSON.parse(message.value));
+            break;
+        case 'color-scheme-changed':
+            if (isDark !== message.isDark) {
+                isDark = message.isDark;
+                chrome.action.setIcon({
+                    "path": {
+                        "16": `/images/icon-${isDark? "dark" : "light"}-16.png`,
+                        "32": `/images/icon-${isDark? "dark" : "light"}-32.png`,
+                        "48": `/images/icon-${isDark? "dark" : "light"}-48.png`,
+                        "128": `/images/icon-${isDark? "dark" : "light"}-128.png`
+                    }
+                })
+            }
             break;
         default:
             break;
