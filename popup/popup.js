@@ -51,12 +51,14 @@ const updateIgnore = (ignore) => {
 
 const updateButtons = (buttons) => {
     let stat;
+    let length = 0;
+    buttons.map(button => button.hidden ? length : length++);
     switch (true) {
-        case buttons.length === 1:
+        case length === 1:
             stat = "One button already stolen"
             break;
-        case buttons.length > 1:
-            stat = `${buttons.length} buttons stolen`
+        case length > 1:
+            stat = `${length} buttons stolen`
             break;
         default:
             stat = "No buttons stolen yet"
@@ -66,6 +68,7 @@ const updateButtons = (buttons) => {
     document.getElementById('buttons').innerHTML = '';
     for (let i = 0; i < Math.min(50, buttons.length); i++) {
         const button = buttons[i];
+        if (button.hidden) continue;
         const div = document.createElement('div');
         div.classList.add('button-wrapper');
         div.innerHTML = button.code;
