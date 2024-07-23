@@ -18,3 +18,9 @@ Button Stealer works locally and **doesn’t send data anywhere**, so your data 
   <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/3jHtgl8EAkl6eXxaY3Rcgg/c3675b4812c75662e3b1317ca53720a0/UI_2x.png?w=1280&fm=webp">
   <img alt="Button Stealer UI" src="https://images.ctfassets.net/7k34737a5krf/3jHtgl8EAkl6eXxaY3Rcgg/c3675b4812c75662e3b1317ca53720a0/UI_2x.png?w=1280&fm=jpg" width="455px">
 </picture>
+
+----
+
+Hi, my name is Anatoly Zenkov. I'm the author of Button Stealer.
+
+I'm a Hamburg-based multidisciplinary designer with a career spanning over 20 years in creating digital products and experiences, brands, and marketing communications. Feel free to hire me for your outstanding project!
