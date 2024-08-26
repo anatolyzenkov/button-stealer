@@ -40,6 +40,10 @@ body {
     }
 }
 
+.stolen-button *[style*="transform: translate"] {
+    transform: none !important
+}
+
 #stolen-buttons a,
 #stolen-buttons button {
     margin-inline: 0 !important;
