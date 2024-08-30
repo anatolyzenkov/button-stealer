@@ -126,4 +126,13 @@ document.getElementById('switch').addEventListener('click', ()=> {
     document.body.classList.toggle('show-settings');
 });
 
+{
+    let emojiCounter = 0;
+    const emoji = ['👍', '🦄', '😍', '🥷', '🙌', '🥹', '🌚', '🔥', '😇', '😻']
+    const emojiPlaceHolder = document.getElementById('donate-emoji');
+    window.setInterval(() => {
+        emojiCounter = (emojiCounter + 1) % emoji.length;
+        emojiPlaceHolder.innerText = emoji[emojiCounter]
+    }, 1000);
+}
 getData();
