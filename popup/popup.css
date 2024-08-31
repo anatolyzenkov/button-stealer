@@ -119,6 +119,20 @@ p {
   transition: left 0.3s cubic-bezier(0.83, 0, 0.17, 1);
 }
 
+#footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+#footer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#narrow-space {
+  letter-spacing: -6px;
+}
+
 .show-settings #settings {
   left: 0;
 }
