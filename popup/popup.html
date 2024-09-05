@@ -25,32 +25,41 @@
             <h1>Button Stealer</h1>
             <p class="grow">Do your usual online stuff and watch the collection of your stolen buttons grow.</p>
             <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank" class="button label">Your Stash</a>
-            <div id="footer"><p id="stat" class="label">…</p><p><a target="_blank" href="https://plisio.net/donate/HzKFPSes"><span id="donate-emoji">👍</span><span id="narrow-space"> </span>Donate</a></p>
+            <div id="footer"><p id="stat" class="label">…</p><p><a id="donation-link"><span id="donate-emoji">👍</span><span id="narrow-space"> </span>Donate</a></p>
         </div>
     </div>
-    <div id="settings">
+    <div id="slider-container">
         <div class="navbar">
-            <h2>Settings</h2>
+            <h2 id="slider-header">Header</h2>
         </div>
-        <div class="wrapper settings">
-            <form id="ignore-form">
-                <h3>Ignore List</h3>
-                <input class="label" placeholder="example.com *.example.com" id="ignore" name="ignore"/>
-            </form>
-            <form id="maximum-form">
-                <h3>Maximum Buttons <span id="maximumValue"></span></h3>
-                <input class="label" type="range" min="100" max="1000" step="100" id="maximum" name="maximum" />
-            </form>
-            
-            <form id="contentful-form">
-                <h3>Contentful Settings</h3>
-                <input class="label" type="password" id="contentManagementApiKey" name="contentManagementApiKey" placeholder="Content Management API Key"></input>
-                <input class="label" type="password" id="contentDeliveryApiKey" name="contentDeliveryApiKey" placeholder="Content Delivery API Key"></input>
-                <input class="label" type="password" id="spaceId" name="spaceId" placeholder="Space ID"></input>
-                <input class="label" type="text" id="contentTypeId" name="contentTypeId" placeholder="Content Type ID"></input>
-                <p>These settings are for author use only.</p>
-            </form>
-            <a id="remove-all" role="button" class="button critical label">Remove All Buttons</a>
+        <div id="settings" class="view hidden">
+            <div class="wrapper settings">
+                <form id="ignore-form">
+                    <h3>Ignore List</h3>
+                    <input class="label" placeholder="example.com *.example.com" id="ignore" name="ignore"/>
+                </form>
+                <form id="maximum-form">
+                    <h3>Maximum Buttons <span id="maximumValue"></span></h3>
+                    <input class="label" type="range" min="100" max="1000" step="100" id="maximum" name="maximum" />
+                </form>
+                
+                <form id="contentful-form">
+                    <h3>Contentful Settings</h3>
+                    <input class="label" type="password" id="contentManagementApiKey" name="contentManagementApiKey" placeholder="Content Management API Key"></input>
+                    <input class="label" type="password" id="contentDeliveryApiKey" name="contentDeliveryApiKey" placeholder="Content Delivery API Key"></input>
+                    <input class="label" type="password" id="spaceId" name="spaceId" placeholder="Space ID"></input>
+                    <input class="label" type="text" id="contentTypeId" name="contentTypeId" placeholder="Content Type ID"></input>
+                    <p>These settings are for author use only.</p>
+                </form>
+                <a id="remove-all" role="button" class="button critical label">Remove All Buttons</a>
+            </div>
+        </div>
+        <div id="donation" class="view">
+            <div class="wrapper donation">
+                <div id="currency-selector" class="group">
+                    <p>Hi! My name is Anatoly. I made Button Stealer. Like it? Consider a crypto tip. Thanks!</p>
+                </div>
+            </div>
         </div>
     </div>
     <div id="switch">

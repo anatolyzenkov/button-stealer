@@ -4,6 +4,7 @@ html {
   --color-black: oklch(0 0 0);
   --color-light-gray: oklch(0.82 0 0);
   --color-dark-red: oklch(0.54 0.24 29.62);
+  --color-violet: oklch(0.56 0.27 283.28);
   --width: 400px;
   --height: 500px;
   --gap: 16px;
@@ -89,6 +90,58 @@ p {
   text-transform: uppercase;
 }
 
+.button.vivid {
+  background-color: var(--color-violet);
+  padding: 32px 44px 32px 32px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button.vivid:hover {
+  color: var(--color-background);
+  background-color: var(--color-foreground);
+}
+
+.button.vivid .icon {
+  background-color: #000;
+  width: 24px; height: 24px;
+  border-radius: 12px;
+  transition: all .4s;
+}
+
+.button.vivid:hover .icon {
+  background-color: var(--color-background);
+}
+
+.button.vivid .icon path {
+  transition: all .4s;
+}
+
+.button.vivid:hover .icon path {
+  fill: var(--color-foreground);
+}
+
+.button.vivid .arrow {
+  height: 16px;
+}
+
+.button.vivid .arrow path {
+  transition: all .2s;
+}
+.button.vivid:hover .arrow path {
+  stroke: var(--color-background);
+}
+
+.button.vivid .lbl {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.button.vivid .icon svg {
+  width: 24px; height: 24px;
+}
+
 .button.critical {
   @media (prefers-color-scheme: dark) {
     color: var(--color-background);
@@ -102,21 +155,26 @@ p {
 }
 
 #main,
-#settings {
-  box-sizing: border-box;
+#slider-container
+{
   width: var(--width);
   height: var(--height);
   position: fixed;
+  overflow: scroll;
 }
 
-#settings {
+#slider-container {
+  box-sizing: border-box;
   color: var(--color-foreground);
   position: fixed;
-  overflow: scroll;
   background-color: var(--color-background);
   left: var(--width);
   top: 0;
   transition: left 0.3s cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.view.hidden {
+  display: none;
 }
 
 #footer {
@@ -133,16 +191,17 @@ p {
   letter-spacing: -6px;
 }
 
-.show-settings #settings {
+.slide-container #slider-container
+ {
   left: 0;
 }
 
-.settings {
+.settings, .donation {
   padding-top: 32px;
   gap: 48px;
 }
 
-form {
+form, .group {
   display: flex;
   flex-direction: column;
   gap: var(--gap);
@@ -234,17 +293,17 @@ input:focus {
   transition: all .2s ease-in-out;
 }
 
-.show-settings #switch .dash.dash-0 {
+.slide-container #switch .dash.dash-0 {
   background-color: var(--color-foreground);
   transform: matrix(1, 0.5, -0.5, 0.85, 0, 8);
 }
 
-.show-settings #switch .dash.dash-1 {
+.slide-container #switch .dash.dash-1 {
   background-color: var(--color-foreground);
   transform: scale(0, 1);
 }
 
-.show-settings #switch .dash.dash-2 {
+.slide-container #switch .dash.dash-2 {
   background-color: var(--color-foreground);
   transform: matrix(1, -0.5, 0.5, 0.85, 0, -8)
 }
