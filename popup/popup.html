@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='/styles/normalize.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='popup.css'>
+    <script src='qrcode.min.js'></script>
 </head>
 
 <body>
@@ -58,6 +59,22 @@
             <div class="wrapper donation">
                 <div id="currency-selector" class="group">
                     <p>Hi! My name is Anatoly. I made Button Stealer. Like it? Consider a crypto tip. Thanks!</p>
+                </div>
+            </div>
+            <div id="crypto-address" class="view">
+                <div class="wrapper content">
+                    <div id="qrcode"></div>
+                    <p id="address">Hi! My name is Anatoly. I made Button Stealer. Like it? Consider a crypto tip. Thanks!</p>
+                    <a id="copy-address" role="button" class="vivid button label">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="1" y="1" width="9" height="9" stroke="white" stroke-width="2"/>
+                            <path d="M10 6H15V15H6V10" stroke="white" stroke-width="2"/>
+                        </svg>
+                        Copy Address
+                    </a>
+                    <a id="back" role="button" class="button invisible label">
+                        Back
+                    </a>
                 </div>
             </div>
         </div>

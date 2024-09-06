@@ -95,6 +95,11 @@ p {
   text-transform: uppercase;
 }
 
+.button.invisible {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
 .button.vivid {
   background-color: var(--color-violet);
   padding: 32px 44px 32px 32px;
@@ -346,4 +351,38 @@ input:focus {
 
 #buttons .button-wrapper {
     padding: 2px;
+}
+
+#crypto-address {
+  background-color: var(--color-background);
+  position: absolute;
+  top: var(--navbar-height);
+  left: var(--width);
+  width: var(--width);
+  transition: left 0.3s cubic-bezier(0.83, 0, 0.17, 1);
+  text-align: center;
+}
+
+#crypto-address .content {
+  padding-top: 32px;
+}
+
+.crypto-address #crypto-address {
+  left: 0;
+}
+
+#qrcode {
+  margin: auto;
+}
+
+#address {
+  word-break: break-all;
+}
+
+#copy-address {
+  justify-content: center;
+}
+
+#back {
+  padding: 16px 48px;
 }
