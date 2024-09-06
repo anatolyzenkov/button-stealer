@@ -7,6 +7,7 @@ html {
   --color-violet: oklch(0.56 0.27 283.28);
   --width: 400px;
   --height: 500px;
+  --navbar-height: 48px;
   --gap: 16px;
   --color-foreground: var(--color-black);
   --color-background: var(--color-white);
@@ -74,8 +75,12 @@ p {
   display: flex;
   padding: var(--gap);
   flex-direction: column;
-  min-height: 100%;
   box-sizing: border-box;
+  min-height: calc(var(--height) - var(--navbar-height));
+}
+
+#dashboard {
+  min-height: var(--height);
 }
 
 .button {
@@ -104,21 +109,12 @@ p {
 }
 
 .button.vivid .icon {
-  background-color: #000;
+  background-color: var(--color-background);
   width: 24px; height: 24px;
   border-radius: 12px;
-  transition: all .4s;
-}
-
-.button.vivid:hover .icon {
-  background-color: var(--color-background);
 }
 
 .button.vivid .icon path {
-  transition: all .4s;
-}
-
-.button.vivid:hover .icon path {
   fill: var(--color-foreground);
 }
 
@@ -269,7 +265,9 @@ input:focus {
 .navbar {
   background-color: var(--color-background);
   position: sticky;
+  box-sizing: border-box;
   padding: var(--gap);
+  height: var(--navbar-height);
   top: 0;
   left: 0;
   right: 0;
@@ -306,6 +304,14 @@ input:focus {
 .slide-container #switch .dash.dash-2 {
   background-color: var(--color-foreground);
   transform: matrix(1, -0.5, 0.5, 0.85, 0, -8)
+}
+
+#currency-selector {
+  flex-grow: 1;
+}
+
+#currency-selector > *:first-child {
+  flex-grow: 1;
 }
 
 #backdrop {
