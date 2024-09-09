@@ -1,7 +1,7 @@
 {
   "name": "Button Stealer",
   "description": "Steals buttons from the websites you visit. Do your usual online stuff and watch the collection of stolen buttons grow.",
-  "version": "1.0.3",
+  "version": "1.0.3.1",
   "manifest_version": 3,
   "action": {
     "default_icon": {
