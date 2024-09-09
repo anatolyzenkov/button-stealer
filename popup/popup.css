@@ -315,8 +315,15 @@ input:focus {
   flex-grow: 1;
 }
 
-#currency-selector > *:first-child {
+#my-name-is {
   flex-grow: 1;
+  display: flex;
+  gap: 12px;
+}
+
+#my-name-is img {
+  width: 84px; height: 84px; display: block;
+  border-radius: 42px;
 }
 
 #backdrop {
