@@ -13,6 +13,16 @@
     }
 }
 
+:root[data-theme="light"] {
+    --color-foreground: var(--color-black);
+    --color-background: var(--color-white);
+}
+
+:root[data-theme="dark"] {
+    --color-foreground: var(--color-white);
+    --color-background: var(--color-black);
+}
+
 body {
     font-family: 'Space Mono', monospace;
     background-color: var(--color-background);
@@ -69,13 +79,14 @@ nav#navbar .center {
 
 nav#navbar .left,
 nav#navbar .right {
-    width: 80px;
+    width: auto;
     display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 nav#navbar .right {
     justify-content: end;
-    margin-right: -8px;
 }
 nav#navbar .left {
     justify-content: start;
@@ -158,23 +169,12 @@ body.delete-mode .stolen-button.selected::after {
     }
 }
 
-
-body.delete-mode #delete,
-body.delete-mode #exit-mode {
-    visibility: visible;
-    display: block;
-    width: auto;
-    height: auto;
-    overflow: unset;
+.delete-only {
+    display: none;
 }
 
-#delete,
-#exit-mode {
-    visibility: hidden;
-    display: none;
-    width: 0;
-    height: 0;
-    overflow: hidden;
+body.delete-mode .delete-only {
+    display: inline-flex;
 }
 
 nav#navbar a.button {
@@ -197,4 +197,34 @@ nav#navbar a.button.critical {
 nav#navbar a.button.disabled {
     pointer-events: none;
     color: var(--color-light-gray);
+}
+
+.nav-sep {
+    opacity: 0.6;
+    user-select: none;
+}
+
+.mode-button {
+    font-family: inherit;
+    text-transform: none;
+    border: none;
+    background: transparent;
+    color: currentColor;
+    cursor: pointer;
+    transition: color .2s, background-color .2s, border-color .2s;
+}
+
+.mode-button-icon {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    stroke-width: 20 !important;
+}
+
+.mode-button-icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
 }
