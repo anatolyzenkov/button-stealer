@@ -2,7 +2,8 @@
     --color-orange: oklch(0.72 0.23 35.81);
     --color-white: oklch(1 0 0);
     --color-black: oklch(0 0 0);
-    --color-light-gray: oklch(0.82 0 0);
+    --color-gray: oklch(0.60 0 0);
+    --color-subtle-gray: oklch(0.90 0 0);
     --color-dark-red: oklch(0.54 0.24 29.62);
     --color-foreground: var(--color-black);
     --color-background: var(--color-white);
@@ -10,6 +11,8 @@
     @media (prefers-color-scheme: dark) {
         --color-foreground: var(--color-white);
         --color-background: var(--color-black);
+        --color-gray: oklch(0.80 0 0);
+        --color-subtle-gray: oklch(0.40 0 0);
     }
 }
 
@@ -57,7 +60,7 @@ nav#navbar {
     display: flex;
     align-items: flex-start;
     margin-bottom: 32px;
-    margin-top: 12px;
+    padding: 12px 0;
 }
 
 nav#navbar .center {
@@ -98,7 +101,7 @@ nav#navbar .left {
 
     nav#navbar {
         margin-bottom: 48px;
-        margin-top: 16px;
+        padding: 16px 0;
         align-items: center;
     }
 
@@ -127,20 +130,76 @@ body.delete-mode #delete-mode {
     overflow: hidden;
 }
 
-body.delete-mode .stolen-button>* {
+body.delete-mode #navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: var(--color-background);
+    align-items: center;
+}
+
+body.delete-mode #navbar .center {
+    margin-top: 0;
+}
+
+body.delete-mode #navbar .left,
+body.delete-mode #navbar .right {
+    align-items: center;
+}
+
+body.delete-mode #stolen-buttons {
+    display: block;
+}
+
+body.delete-mode .stolen-button {
+    display: grid;
+    grid-template-columns: 20px 1fr 1fr;
+    align-items: center;
+    column-gap: 16px;
+    padding: 16px 0;
+}
+
+body.delete-mode .stolen-button-preview {
     pointer-events: none;
-}
-
-body.delete-mode .stolen-button.selected {
+    justify-self: start;
+    align-self: center;
+    width: fit-content;
+    max-width: 100%;
     position: relative;
-    overflow: hidden;
 }
 
-body.delete-mode .stolen-button.selected>* {
+body.delete-mode .stolen-button-preview > * {
+    width: auto !important;
+    max-width: 100%;
+}
+
+body.delete-mode .stolen-button-checkbox {
+    width: 16px;
+    height: 16px;
+}
+
+body.delete-mode .stolen-button-url {
+    text-align: right;
+    white-space: nowrap;
+    color: var(--color-gray);
+    justify-self: end;
+    width: fit-content;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+body.delete-mode #stolen-buttons hr {
+    border: 0;
+    border-top: 1px solid var(--color-subtle-gray);
+    margin: 0;
+}
+
+body.delete-mode .stolen-button.selected .stolen-button-preview > * {
     opacity: .2;
 }
 
-body.delete-mode .stolen-button.selected::after {
+body.delete-mode .stolen-button.selected .stolen-button-preview::after {
     content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L31%2031%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M31%201L1%2031%22%20stroke%3D%22black%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");
     position: absolute;
     width: 32px;
@@ -152,8 +211,12 @@ body.delete-mode .stolen-button.selected::after {
     stroke: currentcolor !important;
 }
 
+body.delete-mode .stolen-button.selected .stolen-button-checkbox {
+    opacity: 1;
+}
+
 @media (prefers-color-scheme: dark) {
-    body.delete-mode .stolen-button.selected::after {
+    body.delete-mode .stolen-button.selected .stolen-button-preview::after {
         content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M1%201L31%2031%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%2F%3E%3Cpath%20d%3D%22M31%201L1%2031%22%20stroke%3D%22white%22%20stroke-width%3D%222%22%2F%3E%3C%2Fsvg%3E");
     }
 }
@@ -196,5 +259,5 @@ nav#navbar a.button.critical {
 
 nav#navbar a.button.disabled {
     pointer-events: none;
-    color: var(--color-light-gray);
+    color: var(--color-gray);
 }
