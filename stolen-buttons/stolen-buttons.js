@@ -187,3 +187,10 @@ document.querySelectorAll('.mode-button').forEach(button => {
         applyThemeMode(next);
     });
 });
+
+const donateButton = document.getElementById('donate-button');
+if (donateButton) {
+    donateButton.addEventListener('click', () => {
+        window.open('https://donate.stripe.com/dRmdRa833fou6nqgnP67S00', '_blank', 'noopener,noreferrer');
+    });
+}
