@@ -13,7 +13,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='/styles/normalize.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='popup.css'>
-    <script src='qrcode.min.js'></script>
 </head>
 
 <body>
@@ -26,7 +25,12 @@
             <h1>Button Stealer</h1>
             <p class="grow">Do your usual online stuff and watch the collection of your stolen buttons grow.</p>
             <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank" class="button label">Your Stash</a>
-            <div id="footer"><p id="stat" class="label">…</p><p><a id="donation-link"><span id="donate-emoji">👍</span><span id="narrow-space"> </span>Donate</a></p>
+            <div id="footer">
+                <p id="stat" class="label">…</p>
+                <a class="icon-button" href="https://donate.stripe.com/dRmdRa833fou6nqgnP67S00" target="_blank" rel="noreferrer" aria-label="Donate">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M240,102c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,228.66,16,172,16,102A62.07,62.07,0,0,1,78,40c20.65,0,38.73,8.88,50,23.89C139.27,48.88,157.35,40,178,40A62.07,62.07,0,0,1,240,102Z"/></svg>
+                </a>
+            </div>
         </div>
     </div>
     <div id="slider-container">
@@ -53,32 +57,6 @@
                     <p>These settings are for author use only.</p>
                 </form>
                 <a id="remove-all" role="button" class="button critical label">Remove All Buttons</a>
-            </div>
-        </div>
-        <div id="donation" class="view">
-            <div class="wrapper donation">
-                <div id="currency-selector" class="group">
-                    <div id="my-name-is">
-                        <img src="/images/userpic.jpg">
-                        <p>Hi! My name is Anatoly. I made Button Stealer. Like it? Consider a crypto tip. Thanks!</p>
-                    </div>
-                </div>
-            </div>
-            <div id="crypto-address" class="view">
-                <div class="wrapper content">
-                    <div id="qrcode"></div>
-                    <p id="address">Placeholder</p>
-                    <a id="copy-address" role="button" class="vivid button label icon">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="1" y="1" width="9" height="9" stroke="white" stroke-width="2"/>
-                            <path d="M10 6H15V15H6V10" stroke="white" stroke-width="2"/>
-                        </svg>
-                        Copy Address
-                    </a>
-                    <a id="back" role="button" class="button invisible label">
-                        Back
-                    </a>
-                </div>
             </div>
         </div>
     </div>

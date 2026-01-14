@@ -198,16 +198,12 @@ p {
   color: inherit;
 }
 
-#narrow-space {
-  letter-spacing: -6px;
-}
-
 .slide-container #slider-container
  {
   left: 0;
 }
 
-.settings, .donation {
+.settings {
   padding-top: 32px;
   gap: 48px;
 }
@@ -321,21 +317,6 @@ input:focus {
   transform: matrix(1, -0.5, 0.5, 0.85, 0, -8)
 }
 
-#currency-selector {
-  flex-grow: 1;
-}
-
-#my-name-is {
-  flex-grow: 1;
-  display: flex;
-  gap: 12px;
-}
-
-#my-name-is img {
-  width: 84px; height: 84px; display: block;
-  border-radius: 42px;
-}
-
 #backdrop {
   position: fixed;
   top: -32px;
@@ -370,36 +351,16 @@ input:focus {
     padding: 2px;
 }
 
-#crypto-address {
-  background-color: var(--color-background);
-  position: absolute;
-  top: var(--navbar-height);
-  left: var(--width);
-  width: var(--width);
-  transition: left 0.3s cubic-bezier(0.83, 0, 0.17, 1);
-  text-align: center;
-}
-
-#crypto-address .content {
-  padding-top: 32px;
-}
-
-.crypto-address #crypto-address {
-  left: 0;
-}
-
-#qrcode {
-  margin: auto;
-}
-
-#address {
-  word-break: break-all;
-}
-
-#copy-address {
+.icon-button {
+  width: 32px;
+  margin-right: -4px;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
 }
 
-#back {
-  padding: 16px 48px;
+.icon-button svg {
+  width: 18px;
+  height: 18px;
+  display: block;
 }
