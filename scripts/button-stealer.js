@@ -99,6 +99,20 @@
                 }
             }  //inheritable
             if (value.toString() === 'auto') continue;
+            if (!isChild && property === 'width') {
+                const rawValue = value.toString().trim();
+                if (rawValue === 'min-content') continue;
+                if (rawValue.endsWith('%')) continue;
+                if (rawValue.endsWith('vw') || rawValue.endsWith('vh') || rawValue.endsWith('vmin') || rawValue.endsWith('vmax')
+                    || rawValue.endsWith('svw') || rawValue.endsWith('svh') || rawValue.endsWith('lvw') || rawValue.endsWith('lvh')
+                    || rawValue.endsWith('dvw') || rawValue.endsWith('dvh')) {
+                    continue;
+                }
+                if (rawValue.endsWith('px')) {
+                    const px = parseFloat(rawValue);
+                    if (!Number.isNaN(px) && px < 16) continue;
+                }
+            }
             if (refCSS.getPropertyValue('border-top-width') === '0px'
                 && ["border-top-color", "border-top-style"].indexOf(property) !== -1) continue; //border
             if (refCSS.getPropertyValue('border-bottom-width') === '0px'

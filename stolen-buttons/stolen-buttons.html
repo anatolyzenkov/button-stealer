@@ -17,15 +17,15 @@
 </head>
 <body>
     <nav id="navbar">
-        <div class="left">
-            <a class="button critical disabled" type="button" id="delete" disabled>Remove</a>
-        </div>
+        <div class="left"></div>
         <div class="center">
             <h1 id="title">Stolen Buttons</h1>
         </div>
         <div class="right">
             <a class="button" type="button" id="delete-mode">Edit</a>
-            <a class="button" type="button" id="exit-mode">Exit</a>
+            <a class="button critical disabled delete-only" type="button" id="delete" disabled>Remove</a>
+            <a class="button delete-only" type="button" id="exit-mode">Exit</a>
+            <button class="mode-button mode-button-icon" type="button" id="theme-toggle" data-mode="system" aria-label="Theme mode: system"></button>
         </div>
     </nav>
     <div id="stolen-buttons"></div>
