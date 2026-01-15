@@ -10,13 +10,18 @@ You can [install](https://chromewebstore.google.com/detail/button-stealer/iiikid
 Button Stealer works locally and **doesn’t send data anywhere**, so your data remains private.
 
 <picture>
-  <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/RgFjNbWSbeLcPlqrOuOLt/1bf63b014b23d85d31ebac890a3d203c/Buttons_2x.png?w=1280&fm=webp">
-  <img alt="Icons collected by Button Stealer" src="https://images.ctfassets.net/7k34737a5krf/RgFjNbWSbeLcPlqrOuOLt/1bf63b014b23d85d31ebac890a3d203c/Buttons_2x.png?w=1280&fm=jpg" width="455px">
+  <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/7MqgnERqlso5jHOgKFgbLr/bce9c7d5916219b55bc76b437a95a251/button-stealer-stash.png?w=1280&fm=webp">
+  <img alt="Stash: buttons collected by Button Stealer" src="https://images.ctfassets.net/7k34737a5krf/7MqgnERqlso5jHOgKFgbLr/bce9c7d5916219b55bc76b437a95a251/button-stealer-stash.png?w=1280&fm=jpg" width="455px">
 </picture>
 
 <picture>
-  <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/3jHtgl8EAkl6eXxaY3Rcgg/c3675b4812c75662e3b1317ca53720a0/UI_2x.png?w=1280&fm=webp">
-  <img alt="Button Stealer UI" src="https://images.ctfassets.net/7k34737a5krf/3jHtgl8EAkl6eXxaY3Rcgg/c3675b4812c75662e3b1317ca53720a0/UI_2x.png?w=1280&fm=jpg" width="455px">
+  <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/75Z0MXmNAhI40VKMgVmSJy/c4ffcb4a159d0d3a1794263a214e2780/button-stealer-pop-up.png?w=1280&fm=webp">
+  <img alt="Button Stealer popup" src="https://images.ctfassets.net/7k34737a5krf/75Z0MXmNAhI40VKMgVmSJy/c4ffcb4a159d0d3a1794263a214e2780/button-stealer-pop-up.png?w=1280&fm=jpg" width="455px">
+</picture>
+
+<picture>
+  <source type="image/webp" srcset="https://images.ctfassets.net/7k34737a5krf/5qewLULsbUp6epu51JsAHN/9c29debcdaee06628d8358106f50b2a7/button-stealer-edit-mode.png?w=1280&fm=webp">
+  <img alt="Edit mode: that's how you remove ugly buttons" src="https://images.ctfassets.net/7k34737a5krf/5qewLULsbUp6epu51JsAHN/9c29debcdaee06628d8358106f50b2a7/button-stealer-edit-mode.png?w=1280&fm=jpg" width="455px">
 </picture>
 
 ----
