@@ -163,10 +163,10 @@ body.delete-mode #stolen-buttons {
 
 body.delete-mode .stolen-button {
     display: grid;
-    grid-template-columns: 20px 1fr 1fr;
+    grid-template-columns: 40px 1fr 1fr;
     align-items: center;
     column-gap: 16px;
-    padding: 16px 0;
+    padding: 20px 0 22px;
 }
 
 body.delete-mode .stolen-button-preview {
@@ -176,6 +176,7 @@ body.delete-mode .stolen-button-preview {
     width: fit-content;
     max-width: 100%;
     position: relative;
+    grid-column: 2;
 }
 
 body.delete-mode .stolen-button-preview > * {
@@ -184,49 +185,57 @@ body.delete-mode .stolen-button-preview > * {
 }
 
 body.delete-mode .stolen-button-checkbox {
-    width: 16px;
+    width: 32px;
+    height: 32px;
+    margin: 0;
+    grid-column: 1;
+    appearance: none;
+    border: 2px solid var(--color-foreground);
+    border-radius: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+body.delete-mode .stolen-button-checkbox:checked {
+    background: var(--color-foreground);
+    position: relative;
+}
+
+body.delete-mode .stolen-button-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    width: 7px;
     height: 16px;
+    border-right: 3px solid var(--color-background);
+    border-bottom: 3px solid var(--color-background);
+    left: 9px;
+    top: 3px;
+    transform: rotate(45deg);
 }
 
 body.delete-mode .stolen-button-url {
     text-align: right;
     white-space: nowrap;
-    color: var(--color-gray);
+    color: var(--color-foreground);
     justify-self: end;
     width: fit-content;
     display: inline-block;
     text-decoration: none;
     text-transform: uppercase;
+    grid-column: 3;
 }
 
-body.delete-mode #stolen-buttons hr {
-    border: 0;
-    border-top: 1px solid var(--color-subtle-gray);
-    margin: 0;
+body.delete-mode .stolen-button.has-divider {
+    box-shadow: inset 0 -2px 0 var(--color-foreground);
+}
+
+body:not(.delete-mode) .stolen-button-checkbox,
+body:not(.delete-mode) .stolen-button-url {
+    display: none;
 }
 
 body.delete-mode .stolen-button.selected .stolen-button-preview > * {
     opacity: .2;
-}
-
-body.delete-mode .stolen-button.selected .stolen-button-preview::before,
-body.delete-mode .stolen-button.selected .stolen-button-preview::after {
-    content: "";
-    position: absolute;
-    width: 32px;
-    height: 2px;
-    left: 50%;
-    top: 50%;
-    margin-left: -16px;
-    background-color: var(--color-foreground);
-}
-
-body.delete-mode .stolen-button.selected .stolen-button-preview::before {
-    transform: translateY(-1px) rotate(45deg);
-}
-
-body.delete-mode .stolen-button.selected .stolen-button-preview::after {
-    transform: translateY(-1px) rotate(-45deg);
 }
 
 body.delete-mode .stolen-button.selected .stolen-button-checkbox {

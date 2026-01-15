@@ -86,16 +86,16 @@ const getButtons = async () => {
     const container = document.getElementById('stolen-buttons');
     const isDeleteMode = document.body.classList.contains(DELETE_MODE);
     const filtered = buttons.filter(button => !button.hidden);
-    container.innerHTML = '';
+    const fragment = document.createDocumentFragment();
 
     filtered.forEach((button, index) => {
         const item = renderButton(button, isDeleteMode);
-        container.append(item);
         if (isDeleteMode && index < filtered.length - 1) {
-            const divider = document.createElement('hr');
-            container.append(divider);
+            item.classList.add('has-divider');
         }
+        fragment.append(item);
     });
+    container.replaceChildren(fragment);
 
     fullRefresh = false;
     updateDeleteButtonState();
