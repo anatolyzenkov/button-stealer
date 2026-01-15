@@ -42,13 +42,12 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 4px;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 16px;
     font-size: 16px;
 }
 
 .stolen-button {
-    padding: 4px;
     max-width: 100%;
 
     * {
@@ -69,6 +68,7 @@ h1 {
     text-transform: uppercase;
     font-size: 4em;
     line-height: 88%;
+    letter-spacing: -2px;
     margin: 0;
 }
 
@@ -77,20 +77,18 @@ nav#navbar {
     align-items: flex-start;
     margin-bottom: 32px;
     padding: 12px 0;
+    align-items: center;
 }
 
 nav#navbar .center {
     display: flex;
-    justify-content: center;
     flex-grow: 1;
-    margin-top: 4px;
 }
 
 nav#navbar .left,
 nav#navbar .right {
     width: auto;
     display: flex;
-    align-items: center;
     gap: 8px;
 }
 
@@ -99,17 +97,11 @@ nav#navbar .right {
 }
 nav#navbar .left {
     justify-content: start;
-    margin-left: -8px;
 }
 
 @media screen and (min-width: 769px) {
     body {
         padding: 16px;
-    }
-
-    #stolen-buttons {
-        gap: 8px;
-        justify-content: space-between;
     }
 
     h1 {
@@ -119,11 +111,9 @@ nav#navbar .left {
     nav#navbar {
         margin-bottom: 48px;
         padding: 16px 0;
-        /* align-items: center; */
     }
 
     nav#navbar .center {
-        justify-content: unset;
         margin-top: 0;
     }
 
