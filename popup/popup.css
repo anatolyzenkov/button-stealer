@@ -364,3 +364,15 @@ input:focus {
   height: 18px;
   display: block;
 }
+
+#info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-transform: uppercase;
+  }
+  
+#info a {
+    text-decoration: none;
+    color: var(--color-violet);
+}

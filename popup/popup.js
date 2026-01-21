@@ -154,3 +154,7 @@ document.getElementById('switch').addEventListener('click', ()=> {
 });
 
 getData();
+const versionEl = document.getElementById('version-label');
+if (versionEl) {
+    versionEl.innerText = chrome.runtime.getManifest().version;
+}
