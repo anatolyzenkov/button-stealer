@@ -358,9 +358,14 @@
             }
         }
         const NEUTRAL_THRESHOLD = 20;
-        const rankedCandidates = candidates.some((entry) => entry.score > NEUTRAL_THRESHOLD)
-            ? candidates.filter((entry) => entry.score > NEUTRAL_THRESHOLD)
-            : candidates;
+        const colorful = candidates.filter((entry) => entry.score > NEUTRAL_THRESHOLD);
+        const neutral = candidates.filter((entry) => entry.score <= NEUTRAL_THRESHOLD);
+        let rankedCandidates = candidates;
+        if (colorful.length > 0 && neutral.length > 0) {
+            rankedCandidates = Math.random() < 0.5 ? colorful : neutral;
+        } else if (colorful.length > 0) {
+            rankedCandidates = colorful;
+        }
         rankedCandidates.sort((a, b) => {
             const diff = b.score - a.score;
             if (diff !== 0) return diff;
