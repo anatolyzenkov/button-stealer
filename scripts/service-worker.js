@@ -30,7 +30,7 @@ chrome.runtime.onInstalled.addListener(async ({ reason }) => {
             const { buttons, upload, contentful } = await chrome.storage.local.get([BUTTONS, UPLOAD, CONTENTFUL]);
             if (buttons.length === 0) break;
             let counter = buttons.length - 1;
-            buttons.map(button => { button.id = counter--; button.hidden = false;} );
+            buttons.map(button => { button.id = counter--; button.hidden = button.hidden ?? false; } );
             chrome.storage.local.set({ buttons: buttons });
             if (!upload) chrome.storage.local.set({ 'upload': [] });
             if (!contentful.contentDeliveryApiKey) {

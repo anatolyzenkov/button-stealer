@@ -264,6 +264,41 @@
 
     const DEBUG = false;
 
+    const parseRgb = (value) => {
+        const match = value.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+        if (!match) return null;
+        return [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3], 10)];
+    }
+
+    const colorDistance = (a, b) => {
+        const dr = a[0] - b[0];
+        const dg = a[1] - b[1];
+        const db = a[2] - b[2];
+        return Math.sqrt(dr * dr + dg * dg + db * db);
+    }
+
+    const backgroundScore = (value) => {
+        if (!value || value === 'transparent' || value === 'rgba(0, 0, 0, 0)') return 0;
+        const rgb = parseRgb(value);
+        if (!rgb) return 0;
+        const neutrals = [
+            [0, 0, 0],
+            [255, 255, 255],
+            [128, 128, 128]
+        ];
+        const minDistance = Math.min(...neutrals.map((neutral) => colorDistance(rgb, neutral)));
+        return minDistance;
+    }
+
+    const getBackgroundColor = (button, elemCSS) => {
+        let bg = elemCSS.getPropertyValue('background-color');
+        if (bg === 'rgba(0, 0, 0, 0)' && button.children.length > 0) {
+            const elemChildCSS = window.getComputedStyle(button.children[0]);
+            bg = elemChildCSS.getPropertyValue('background-color');
+        }
+        return bg;
+    }
+
     const getCode = (stolenButtons) => {
         const possibleButtons = [
             Array.from(document.getElementsByTagName('a')),
@@ -273,6 +308,7 @@
             possibleButtons[0].sort(()=> {return Math.random() > .5 ? 1 : -1;})
             possibleButtons[1].sort(()=> {return Math.random() > .5 ? 1 : -1;})
         }
+        const candidates = [];
         for (let j = 0; j < possibleButtons.length; j++) {
             const buttons = possibleButtons[j];
             for (let i = 0; i < buttons.length; i++) {
@@ -310,27 +346,42 @@
                         continue;
                     }
                 }
-                const cloneButton = button.cloneNode(true);
-                cloneButton.style.margin = '0';
-                stripCSS(cloneButton, button);
-                if (cloneButton.style.position === 'absolute') cloneButton.style.position = 'relative';
-                if (j === 0) {
-                    cloneButton.removeAttribute('href');
-                } else {
-                    cloneButton.removeAttribute('onclick');
-                }
-                return {
-                    code: cloneButton.outerHTML
-                        .replaceAll('rgb(255, 255, 255)', '#FFF')
-                        .replaceAll('rgb(0, 0, 0)', '#000')
-                        .replaceAll('rgba(0, 0, 0, 0)', 'transparent'),
-                    text: button.innerText.trim()
-                }
+                const bg = getBackgroundColor(button, elemCSS);
+                const score = backgroundScore(bg);
+                candidates.push({ button, sourceType: j, score });
             }
         }
+        if (candidates.length === 0) {
+            return {
+                code: undefined,
+                text: undefined
+            }
+        }
+        const NEUTRAL_THRESHOLD = 20;
+        const rankedCandidates = candidates.some((entry) => entry.score > NEUTRAL_THRESHOLD)
+            ? candidates.filter((entry) => entry.score > NEUTRAL_THRESHOLD)
+            : candidates;
+        rankedCandidates.sort((a, b) => {
+            const diff = b.score - a.score;
+            if (diff !== 0) return diff;
+            return Math.random() > 0.5 ? 1 : -1;
+        });
+        const { button, sourceType } = rankedCandidates[0];
+        const cloneButton = button.cloneNode(true);
+        cloneButton.style.margin = '0';
+        stripCSS(cloneButton, button);
+        if (cloneButton.style.position === 'absolute') cloneButton.style.position = 'relative';
+        if (sourceType === 0) {
+            cloneButton.removeAttribute('href');
+        } else {
+            cloneButton.removeAttribute('onclick');
+        }
         return {
-            code: undefined,
-            text: undefined
+            code: cloneButton.outerHTML
+                .replaceAll('rgb(255, 255, 255)', '#FFF')
+                .replaceAll('rgb(0, 0, 0)', '#000')
+                .replaceAll('rgba(0, 0, 0, 0)', 'transparent'),
+            text: button.innerText.trim()
         }
     }
 
