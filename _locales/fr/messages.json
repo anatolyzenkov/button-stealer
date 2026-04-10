@@ -1,9 +1,9 @@
 {
   "extName": { "message": "Button Stealer" },
-  "extDescription": { "message": "Vole les boutons des sites que vous visitez. Naviguez comme d'habitude et regardez votre collection de boutons volés grandir." },
+  "extDescription": { "message": "Vole les boutons des sites que vous visitez. Naviguez comme d’habitude et regardez votre collection de boutons volés s’agrandir." },
   "popupTitle": { "message": "Button Stealer" },
   "popupHeading": { "message": "Button Stealer" },
-  "popupIntro": { "message": "Naviguez comme d'habitude et regardez votre collection de boutons volés grandir." },
+  "popupIntro": { "message": "Naviguez comme d’habitude et regardez votre collection de boutons volés s’agrandir." },
   "popupYourStash": { "message": "Votre collection" },
   "popupDonateAria": { "message": "Faire un don" },
   "popupSettingsTitle": { "message": "Paramètres" },

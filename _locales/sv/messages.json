@@ -1,9 +1,9 @@
 {
   "extName": { "message": "Button Stealer" },
-  "extDescription": { "message": "Stjäl knappar från webbplatserna du besöker. Surfa som vanligt och se din samling av stulna knappar växa." },
+  "extDescription": { "message": "Stjäl knappar från webbplatserna du besöker. Surfa som vanligt och se hur din samling av stulna knappar växer." },
   "popupTitle": { "message": "Button Stealer" },
   "popupHeading": { "message": "Button Stealer" },
-  "popupIntro": { "message": "Surfa som vanligt och se din samling av stulna knappar växa." },
+  "popupIntro": { "message": "Surfa som vanligt och se hur din samling av stulna knappar växer." },
   "popupYourStash": { "message": "Din samling" },
   "popupDonateAria": { "message": "Donera" },
   "popupSettingsTitle": { "message": "Inställningar" },

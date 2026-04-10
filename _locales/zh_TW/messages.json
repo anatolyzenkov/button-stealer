@@ -1,9 +1,9 @@
 {
   "extName": { "message": "Button Stealer" },
-  "extDescription": { "message": "從你造訪的網站中「偷走」按鈕。像平常一樣上網，看著你偷來的按鈕收藏持續增加。" },
+  "extDescription": { "message": "從你造訪的網站中「偷走」按鈕。照常瀏覽網站，看著你偷來的按鈕收藏一點一點變多。" },
   "popupTitle": { "message": "Button Stealer" },
   "popupHeading": { "message": "Button Stealer" },
-  "popupIntro": { "message": "像平常一樣上網，看著你偷來的按鈕收藏持續增加。" },
+  "popupIntro": { "message": "照常瀏覽網站，看著你偷來的按鈕收藏一點一點變多。" },
   "popupYourStash": { "message": "你的收藏" },
   "popupDonateAria": { "message": "贊助" },
   "popupSettingsTitle": { "message": "設定" },

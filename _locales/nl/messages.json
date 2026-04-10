@@ -1,9 +1,9 @@
 {
   "extName": { "message": "Button Stealer" },
-  "extDescription": { "message": "Steelt knoppen van de websites die je bezoekt. Surf zoals gewoonlijk verder en zie hoe je verzameling gestolen knoppen groeit." },
+  "extDescription": { "message": "Steelt knoppen van de websites die je bezoekt. Ga gewoon door zoals altijd en zie hoe je verzameling gestolen knoppen groeit." },
   "popupTitle": { "message": "Button Stealer" },
   "popupHeading": { "message": "Button Stealer" },
-  "popupIntro": { "message": "Surf zoals gewoonlijk verder en zie hoe je verzameling gestolen knoppen groeit." },
+  "popupIntro": { "message": "Ga gewoon door zoals altijd en zie hoe je verzameling gestolen knoppen groeit." },
   "popupYourStash": { "message": "Jouw verzameling" },
   "popupDonateAria": { "message": "Doneren" },
   "popupSettingsTitle": { "message": "Instellingen" },

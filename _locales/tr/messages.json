@@ -1,9 +1,9 @@
 {
   "extName": { "message": "Button Stealer" },
-  "extDescription": { "message": "Ziyaret ettiğiniz web sitelerinden düğmeleri çalar. Her zamanki gibi internette dolaşın ve çalınmış düğme koleksiyonunuzun büyümesini izleyin." },
+  "extDescription": { "message": "Ziyaret ettiğiniz web sitelerinden düğmeleri çalar. Her zamanki gibi gezinmeye devam edin ve çalınmış düğme koleksiyonunuzun nasıl büyüdüğünü izleyin." },
   "popupTitle": { "message": "Button Stealer" },
   "popupHeading": { "message": "Button Stealer" },
-  "popupIntro": { "message": "Her zamanki gibi internette dolaşın ve çalınmış düğme koleksiyonunuzun büyümesini izleyin." },
+  "popupIntro": { "message": "Her zamanki gibi gezinmeye devam edin ve çalınmış düğme koleksiyonunuzun nasıl büyüdüğünü izleyin." },
   "popupYourStash": { "message": "Koleksiyonunuz" },
   "popupDonateAria": { "message": "Bağış yap" },
   "popupSettingsTitle": { "message": "Ayarlar" },

@@ -1,9 +1,9 @@
 {
   "extName": { "message": "Button Stealer" },
-  "extDescription": { "message": "訪れたサイトからボタンを「盗み」ます。いつも通りネットを使いながら、盗んだボタンのコレクションが増えていくのを眺めましょう。" },
+  "extDescription": { "message": "訪れたサイトからボタンを「盗み」ます。いつもどおりサイトを見て回りながら、盗んだボタンのコレクションが少しずつ増えていくのを眺めてください。" },
   "popupTitle": { "message": "Button Stealer" },
   "popupHeading": { "message": "Button Stealer" },
-  "popupIntro": { "message": "いつも通りネットを使いながら、盗んだボタンのコレクションが増えていくのを眺めましょう。" },
+  "popupIntro": { "message": "いつもどおりサイトを見て回りながら、盗んだボタンのコレクションが少しずつ増えていくのを眺めてください。" },
   "popupYourStash": { "message": "あなたのコレクション" },
   "popupDonateAria": { "message": "寄付" },
   "popupSettingsTitle": { "message": "設定" },

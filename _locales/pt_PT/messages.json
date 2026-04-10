@@ -1,9 +1,9 @@
 {
   "extName": { "message": "Button Stealer" },
-  "extDescription": { "message": "Rouba botões dos sites que visitas. Navega normalmente e vê a tua coleção de botões roubados crescer." },
+  "extDescription": { "message": "Rouba botões dos sites que visitas. Navega como de costume e vê a tua coleção de botões roubados crescer." },
   "popupTitle": { "message": "Button Stealer" },
   "popupHeading": { "message": "Button Stealer" },
-  "popupIntro": { "message": "Navega normalmente e vê a tua coleção de botões roubados crescer." },
+  "popupIntro": { "message": "Navega como de costume e vê a tua coleção de botões roubados crescer." },
   "popupYourStash": { "message": "A tua coleção" },
   "popupDonateAria": { "message": "Doar" },
   "popupSettingsTitle": { "message": "Definições" },
