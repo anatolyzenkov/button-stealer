@@ -6,6 +6,7 @@ const CNTFL_TYPE_ID = 'contentTypeId';
 const CONTENTFUL = 'contentful';
 const BUTTONS = 'buttons';
 const IGNORE = 'ignore';
+const { t, apply } = window.ButtonStealerI18n;
 const maximumInput = document.getElementById(MAXIMUM);
 const maximumValue = document.getElementById('maximumValue');
 const ignoreInput = document.getElementById(IGNORE);
@@ -56,13 +57,13 @@ const updateButtons = (buttons) => {
     buttons.map(button => button.hidden ? length : length++);
     switch (true) {
         case length === 1:
-            stat = "One button already stolen"
+            stat = t('popupButtonsStolenOne');
             break;
         case length > 1:
-            stat = `${length} buttons stolen`
+            stat = t('popupButtonsStolenMany', [String(length)]);
             break;
         default:
-            stat = "No buttons stolen yet"
+            stat = t('popupButtonsStolenZero');
             break;
     }
     document.getElementById('stat').innerText = stat;
@@ -110,7 +111,7 @@ maximumInput.addEventListener('input', () => {
 })
 
 document.getElementById('remove-all').addEventListener('click', () => {
-    if (window.confirm("Remove buttons?") == true) {
+    if (window.confirm(t('popupRemoveButtonsConfirm')) == true) {
         chrome.runtime.sendMessage({
             type: 'remove-all',
             target: 'background'
@@ -149,12 +150,13 @@ document.getElementById('switch').addEventListener('click', ()=> {
     if (document.body.classList.contains('slide-container')) {
         closeSlider();
     } else {
-        openSlider('Settings', 'settings');
+        openSlider(t('popupSettingsTitle'), 'settings');
     }
 });
 
+apply();
 getData();
 const versionEl = document.getElementById('version-label');
 if (versionEl) {
-    versionEl.innerText = 'V' + chrome.runtime.getManifest().version;
+    versionEl.innerText = t('popupVersionPrefix') + chrome.runtime.getManifest().version;
 }

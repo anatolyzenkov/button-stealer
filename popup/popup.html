@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html data-i18n-title="popupTitle">
 
 <head>
     <meta charset='utf-8'>
@@ -22,12 +22,12 @@
             <div id="backdrop-blur"></div>
         </div>
         <div id="dashboard" class="wrapper">
-            <h1>Button Stealer</h1>
-            <p class="grow">Do your usual online stuff and watch the collection of your stolen buttons grow.</p>
-            <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank" class="button label">Your Stash</a>
+            <h1 data-i18n="popupHeading">Button Stealer</h1>
+            <p class="grow" data-i18n="popupIntro">Do your usual online stuff and watch the collection of your stolen buttons grow.</p>
+            <a href="/stolen-buttons/stolen-buttons.html" role="button" target="_blank" class="button label" data-i18n="popupYourStash">Your Stash</a>
             <div id="footer">
                 <p id="stat" class="label">…</p>
-                <a class="icon-button" href="https://donate.stripe.com/dRmdRa833fou6nqgnP67S00" target="_blank" rel="noreferrer" aria-label="Donate">
+                <a class="icon-button" href="https://donate.stripe.com/dRmdRa833fou6nqgnP67S00" target="_blank" rel="noreferrer" aria-label="Donate" data-i18n-aria-label="popupDonateAria">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><rect width="256" height="256" fill="none"/><path d="M240,102c0,70-103.79,126.66-108.21,129a8,8,0,0,1-7.58,0C119.79,228.66,16,172,16,102A62.07,62.07,0,0,1,78,40c20.65,0,38.73,8.88,50,23.89C139.27,48.88,157.35,40,178,40A62.07,62.07,0,0,1,240,102Z"/></svg>
                 </a>
             </div>
@@ -35,31 +35,31 @@
     </div>
     <div id="slider-container">
         <div class="navbar">
-            <h2 id="slider-header">Header</h2>
+            <h2 id="slider-header">Settings</h2>
         </div>
         <div id="settings" class="view hidden">
             <div class="wrapper settings">
                 <form id="ignore-form">
-                    <h3>Ignore List</h3>
+                    <h3 data-i18n="popupIgnoreList">Ignore List</h3>
                     <input class="label" placeholder="example.com *.example.com" id="ignore" name="ignore"/>
                 </form>
                 <form id="maximum-form">
-                    <h3>Maximum Buttons <span id="maximumValue"></span></h3>
+                    <h3><span id="maximumLabel" data-i18n="popupMaximumButtons">Maximum Buttons</span> <span id="maximumValue"></span></h3>
                     <input class="label" type="range" min="100" max="1000" step="100" id="maximum" name="maximum" />
                 </form>
                 
                 <form id="contentful-form">
-                    <h3>Contentful Settings</h3>
-                    <input class="label" type="password" id="contentManagementApiKey" name="contentManagementApiKey" placeholder="Content Management API Key"></input>
-                    <input class="label" type="password" id="contentDeliveryApiKey" name="contentDeliveryApiKey" placeholder="Content Delivery API Key"></input>
-                    <input class="label" type="password" id="spaceId" name="spaceId" placeholder="Space ID"></input>
-                    <input class="label" type="text" id="contentTypeId" name="contentTypeId" placeholder="Content Type ID"></input>
-                    <p>These settings are for author use only.</p>
+                    <h3 data-i18n="popupContentfulSettings">Contentful Settings</h3>
+                    <input class="label" type="password" id="contentManagementApiKey" name="contentManagementApiKey" placeholder="Content Management API Key" data-i18n-placeholder="popupContentManagementApiKey"></input>
+                    <input class="label" type="password" id="contentDeliveryApiKey" name="contentDeliveryApiKey" placeholder="Content Delivery API Key" data-i18n-placeholder="popupContentDeliveryApiKey"></input>
+                    <input class="label" type="password" id="spaceId" name="spaceId" placeholder="Space ID" data-i18n-placeholder="popupSpaceId"></input>
+                    <input class="label" type="text" id="contentTypeId" name="contentTypeId" placeholder="Content Type ID" data-i18n-placeholder="popupContentTypeId"></input>
+                    <p data-i18n="popupAuthorOnly">These settings are for author use only.</p>
                 </form>
-                <a id="remove-all" role="button" class="button critical label">Remove All Buttons</a>
+                <a id="remove-all" role="button" class="button critical label" data-i18n="popupRemoveAllButtons">Remove All Buttons</a>
                 <div id="info">
                     <p id="version"><a target="_blank" href="https://chromewebstore.google.com/detail/button-stealer/iiikidmnimlpahbeknmkeonmemajpccj" id="version-label"></a></p>
-                    <p id="about"><a target="_blank" href="https://anatolyzenkov.com/stolen-buttons/button-stealer">About</a></p>
+                    <p id="about"><a target="_blank" href="https://anatolyzenkov.com/stolen-buttons/button-stealer" data-i18n="popupAbout">About</a></p>
                     <p id="github"><a target="_blank" href="https://github.com/anatolyzenkov/button-stealer">GitHub</a></p>
                 </div>
             </div>
@@ -70,6 +70,7 @@
         <div class="dash dash-1"></div>
         <div class="dash dash-2"></div>
     </div>
+    <script src='/scripts/i18n.js'></script>
     <script src='popup.js'></script>
 </body>
 

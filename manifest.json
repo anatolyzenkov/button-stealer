@@ -1,7 +1,8 @@
 {
-  "name": "Button Stealer",
-  "description": "Steals buttons from the websites you visit. Do your usual online stuff and watch the collection of stolen buttons grow.",
+  "name": "__MSG_extName__",
+  "description": "__MSG_extDescription__",
   "version": "1.0.5",
+  "default_locale": "en",
   "manifest_version": 3,
   "action": {
     "default_icon": {

@@ -1,5 +1,6 @@
 const DELETE_MODE = 'delete-mode';
 const THEME_MODE = 'themeMode';
+const { t, apply } = window.ButtonStealerI18n;
 let fullRefresh = false;
 const THEME_ORDER = ['system', 'light', 'dark'];
 const THEME_ICONS = {
@@ -17,10 +18,10 @@ const updateDeleteButtonState = () => {
     const deleteButton = document.getElementById('delete');
     if (selected > 0) {
         deleteButton.classList.remove('disabled');
-        deleteButton.innerText = `Remove (${selected})`;
+        deleteButton.innerText = t('stashRemoveCount', [String(selected)]);
     } else {
         deleteButton.classList.add('disabled');
-        deleteButton.innerText = 'Remove';
+        deleteButton.innerText = t('stashRemove');
     }
 }
 
@@ -112,6 +113,7 @@ const deleteButtons = async () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    apply();
     getButtons();
     initThemeMode();
 });
@@ -126,13 +128,13 @@ chrome.storage.onChanged.addListener((obj) => {
 });
 
 document.getElementById('delete-mode').addEventListener('click', ()=> {
-    document.getElementById('title').innerText = 'Edit';
+    document.getElementById('title').innerText = t('stashEdit');
     document.body.classList.add(DELETE_MODE);
     getButtons();
 });
 
 document.getElementById('exit-mode').addEventListener('click', ()=> {
-    document.getElementById('title').innerText = 'Stolen Buttons';
+    document.getElementById('title').innerText = t('stashTitle');
     document.body.classList.remove(DELETE_MODE);
     getButtons();
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
@@ -167,10 +169,12 @@ const applyThemeMode = (mode) => {
     if (toggle) {
         const idx = THEME_ORDER.indexOf(mode);
         const next = THEME_ORDER[(idx + 1) % THEME_ORDER.length];
+        const localizedMode = t(`themeMode${mode.charAt(0).toUpperCase()}${mode.slice(1)}`);
+        const localizedNext = t(`themeMode${next.charAt(0).toUpperCase()}${next.slice(1)}`);
         toggle.dataset.mode = mode;
         toggle.innerHTML = THEME_ICONS[mode] || THEME_ICONS.system;
-        toggle.setAttribute('aria-label', `Theme mode: ${mode}`);
-        toggle.setAttribute('title', `Switch to ${next} mode`);
+        toggle.setAttribute('aria-label', t('stashThemeModeAria', [localizedMode]));
+        toggle.setAttribute('title', t('stashThemeSwitchTo', [localizedNext]));
     }
 }
 
