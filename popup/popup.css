@@ -11,10 +11,12 @@ html {
   --gap: 16px;
   --color-foreground: var(--color-black);
   --color-background: var(--color-white);
+  --color-link: var(--color-violet);
   
   @media (prefers-color-scheme: dark) {
     --color-foreground: var(--color-white);
     --color-background: var(--color-black);
+    --color-link: var(--color-orange);
   }
 }
 
@@ -101,7 +103,7 @@ p {
 }
 
 .button.vivid {
-  background-color: var(--color-violet);
+  background-color: var(--color-link);
   padding: 32px 44px 32px 32px;
   display: flex;
   align-items: center;
@@ -296,7 +298,7 @@ input:focus {
 }
 
 #switch .dash {
-  background-color: var(--color-white);
+  background-color: var(--color-black);
   height: 2px;
   width: 32px;
   transition: all .2s ease-in-out;
@@ -374,5 +376,5 @@ input:focus {
   
 #info a {
     text-decoration: none;
-    color: var(--color-violet);
+    color: var(--color-link);
 }
