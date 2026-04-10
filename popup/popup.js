@@ -16,6 +16,8 @@ const spaceIdInput = document.getElementById(CNTFL_SPACE_ID);
 const typeIdInput = document.getElementById(CNTFL_TYPE_ID);
 const contentfulForm = document.getElementById(`${CONTENTFUL}-form`);
 let topHeader = '';
+let pendingMaximum = null;
+let savedMaximum = null;
 
 const saveContentful = () => {
     const formData = new FormData(contentfulForm);
@@ -41,6 +43,8 @@ const saveMaximum = () => {
 const updateMaximum = (maximum) => {
     maximumInput.value = maximum;
     maximumValue.innerText = maximum;
+    savedMaximum = String(maximum);
+    pendingMaximum = String(maximum);
 }
 
 const saveIgnore = () => {
@@ -93,14 +97,12 @@ const sendToBackground = (type, value) => {
         target: 'background'
     });
 }
-let maximumDelay = -1;
 let contentfulDelay = -1;
 let ignoreDelay = -1;
 
 maximumInput.addEventListener('input', () => {
     maximumValue.innerText = maximumInput.value;
-    clearTimeout(maximumDelay);
-    maximumDelay = setTimeout(saveMaximum, 500);
+    pendingMaximum = maximumInput.value;
 });
 
 [mgmtApiKeyInput, dlvrApiKeyInput, spaceIdInput, typeIdInput].forEach(input => {
@@ -160,3 +162,18 @@ const versionEl = document.getElementById('version-label');
 if (versionEl) {
     versionEl.innerText = t('popupVersionPrefix') + chrome.runtime.getManifest().version;
 }
+
+const flushMaximum = () => {
+    if (pendingMaximum === null) return;
+    if (pendingMaximum === savedMaximum) return;
+    savedMaximum = pendingMaximum;
+    saveMaximum();
+}
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        flushMaximum();
+    }
+});
+
+window.addEventListener('pagehide', flushMaximum);
